@@ -1,0 +1,52 @@
+.pet-image-container {
+  width: 64px;
+  height: 64px;
+  background-color: var(--primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet-image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+}
+
+.treatment-card {
+
+  min-width: 500px;
+  min-height: 350px
+
+
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.header-container {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+.btn-dark-green {
+  background-color: #2f882f; /* Dark green */
+  border-color: #2f9425;
+  color: white;
+}
+.btn-dark-green:hover,
+.btn-dark-green:focus {
+  background-color: #0ea101;
+  border-color: #248817;
+  color: white;
+}
+
+
+
