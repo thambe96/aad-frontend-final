@@ -1,29 +1,27 @@
-$(document).ready(function() {
 
 
 
 
 
+$(document).ready(function () {
 
 
 
+  $.ajax({
+    url: 'http://localhost:8080/api/v1/treatmentReqController/getAllRequests',
+    method: 'GET',
+    dataType: 'json',
+    success: function (obj) {
 
 
-    $.ajax({
-      url: 'http://localhost:8080/api/v1/treatmentReqController/getAllRequests', 
-      method: 'GET',
-      dataType: 'json',
-      success: function(obj) {
+      // Assuming data is an array of card objects
 
+      alert("Successfull !!");
+      alert(JSON.stringify(obj, 2, null));
 
-        // Assuming data is an array of card objects
-
-        alert("Successfull !!");
-        alert(JSON.stringify(obj, 2, null));
-
-        obj.data.forEach(function(card) {
-          // Create card HTML string
-          const cardHtml = `
+      obj.data.forEach(function (card) {
+        // Create card HTML string
+        const cardHtml = `
 
                 
                   <div  class="col-md-6 col-lg-4 m-5">
@@ -90,16 +88,16 @@ $(document).ready(function() {
                           <div class="funding-progress mb-3">
                               <div class="d-flex justify-content-between align-items-center small mb-2">
                                   <span class="fw-medium">Funding Progress</span>
-                                  <span class="text-muted" id="progressPercentage">${(card.collectedAmount/card.treatmentPrice)*100}% funded</span>
+                                  <span class="text-muted" id="progressPercentage">${(card.collectedAmount / card.treatmentPrice) * 100}% funded</span>
                               </div>
 
                               <!-- Progress Bar -->
                               <div class="progress mb-2" style="height: 8px;">
                                   <div class="progress-bar bg-primary" 
                                       role="progressbar" 
-                                      style="width: ${(card.collectedAmount/card.treatmentPrice)*100}%" 
+                                      style="width: ${(card.collectedAmount / card.treatmentPrice) * 100}%" 
                                       id="progressBar"
-                                      aria-valuenow="${(card.collectedAmount/card.treatmentPrice)*100}" 
+                                      aria-valuenow="${(card.collectedAmount / card.treatmentPrice) * 100}" 
                                       aria-valuemin="0" 
                                       aria-valuemax="100">
                                   </div>
@@ -139,51 +137,51 @@ $(document).ready(function() {
         </div>
 
           `;
-          // Append card to container
-          $('#card-container').append(cardHtml);
-        });
-      },
-      error: function(err) {
+        // Append card to container
+        $('#card-container').append(cardHtml);
+      });
+    },
+    error: function (err) {
 
-        alert("Faild !!");
+      alert("Faild !!");
 
-        console.error('Error fetching cards:', err);
-      }
-    });
+      console.error('Error fetching cards:', err);
+    }
   });
+});
 
 
 
 
 
-  // Replace with your own publishable key
-    // const stripe = Stripe('pk_test_YourPublishableKeyHere');
+// Replace with your own publishable key
+// const stripe = Stripe('pk_test_YourPublishableKeyHere');
 
 
-    // Elements instance
-    // const elements = stripe.elements();
+// Elements instance
+// const elements = stripe.elements();
 
 
-    // Create card Element and mount it
-    // const card = elements.create('card');
+// Create card Element and mount it
+// const card = elements.create('card');
 
 
-    // card.mount('#card-element');
+// card.mount('#card-element');
 
 
-    // Handle real-time validation errors
+// Handle real-time validation errors
 
 
 
 
-    // const cardErrors = document.getElementById('card-errors');
-    // card.on('change', event => {
-    //   if (event.error) {
-    //     cardErrors.textContent = event.error.message;
-    //   } else {
-    //     cardErrors.textContent = '';
-    //   }
-    // });
+// const cardErrors = document.getElementById('card-errors');
+// card.on('change', event => {
+//   if (event.error) {
+//     cardErrors.textContent = event.error.message;
+//   } else {
+//     cardErrors.textContent = '';
+//   }
+// });
 
 
 
@@ -224,49 +222,49 @@ document.getElementById("open-payment-modal").addEventListener("click", () => {
 
 
 // 1. Initialize Stripe with your publishable key
-    const stripe = Stripe("pk_test_51S6y0y2M5zdyQQeDBmKjQuH1vX9LATqMdkaCQpUgfE1l29PifU6ckECT5Dk90qzSzgIgyeoV41RQIhNfcc8GUGW000vkjM46y4"); // replace with your own publishable key
-    const elements = stripe.elements();
+const stripe = Stripe("pk_test_51S6y0y2M5zdyQQeDBmKjQuH1vX9LATqMdkaCQpUgfE1l29PifU6ckECT5Dk90qzSzgIgyeoV41RQIhNfcc8GUGW000vkjM46y4"); // replace with your own publishable key
+const elements = stripe.elements();
 
-    // 2. Create the Card Element
-    const card = elements.create("card", { hidePostalCode: true });
-    card.mount("#card-element");
+// 2. Create the Card Element
+const card = elements.create("card", { hidePostalCode: true });
+card.mount("#card-element");
 
-    // 3. Handle payment form submit
-    const form = document.getElementById("payment-form");
-    const paymentMessage = document.getElementById("payment-message");
+// 3. Handle payment form submit
+const form = document.getElementById("payment-form");
+const paymentMessage = document.getElementById("payment-message");
 
-    form.addEventListener("submit", async (event) => {
-        event.preventDefault();
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-        // (a) Call your backend via AJAX to create a PaymentIntent
-        const response = await fetch("http://localhost:8080/api/v1/payment/create-intent", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                amountCents: 2000,
-                currency: "USD",
-                requestId: 2,
-                donorUserId: 2
-            })
-        });
+  // (a) Call your backend via AJAX to create a PaymentIntent
+  const response = await fetch("http://localhost:8080/api/v1/payment/create-intent", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      amountCents: 2000,
+      currency: "USD",
+      requestId: 2,
+      donorUserId: 2
+    })
+  });
 
-        const data = await response.json();
-        const clientSecret = data.clientSecret;
+  const data = await response.json();
+  const clientSecret = data.clientSecret;
 
-        // (b) Confirm the card payment using Stripe
-        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-            }
-        });
+  // (b) Confirm the card payment using Stripe
+  const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+    payment_method: {
+      card: card,
+    }
+  });
 
-        if (error) {
-            // Show error in UI
-            paymentMessage.textContent = "❌ " + error.message;
-            paymentMessage.style.color = "red";
-        } else if (paymentIntent.status === "succeeded") {
-            // Payment was successful
-            paymentMessage.textContent = "✅ Payment successful!";
-            paymentMessage.style.color = "green";
-        }
-    });
+  if (error) {
+    // Show error in UI
+    paymentMessage.textContent = "❌ " + error.message;
+    paymentMessage.style.color = "red";
+  } else if (paymentIntent.status === "succeeded") {
+    // Payment was successful
+    paymentMessage.textContent = "✅ Payment successful!";
+    paymentMessage.style.color = "green";
+  }
+});
