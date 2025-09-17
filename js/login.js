@@ -4,6 +4,12 @@
  const sponsorContainer = $('#sponsor');
  const loginBtn = $('#sign-in');
 
+
+ let userName = $('#userName');
+ let userEmail = $('#userEmail');
+ let userRole = $('#userRole');
+ let userImageUrl = $('#userImageUrl');
+
  const createUserBtn = $('#createAccountBtn');
 
 let name;
@@ -242,11 +248,24 @@ loginBtn.on('click', function(e) {
             console.log("Decoded payload:", payloadJson);
             console.log("User role:", payloadJson.role);  // 👉 gives you "PET_OWNER"
             console.log("Username:", payloadJson.sub);    // 👉 gives you "smith"
-            // alert(payloadBase64);
-            // alert(payloadDecoded);
-            // alert(payloadJson.role);
+            alert(payloadBase64);
+            alert(payloadDecoded);
+            alert(payloadJson.role);
+            alert(payloadJson.email);
 
             let role = payloadJson.role;
+
+            userName.text(payloadJson.sub);
+            userEmail.text(payloadJson.email);
+            userRole.text(payloadJson.role);
+
+            let usrImgUrl = payloadJson.userImageUrl;
+
+            if(usrImgUrl) {
+                $('#userImageUrl').attr('src', usrImgUrl);
+            }
+
+            
 
 
 
