@@ -41,7 +41,7 @@
                                     
 
                                     
-                                    <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
+                                    <button type="button" id="sign-in" class="btn btn-primary w-100 mb-3">Sign In</button>
                                 </form>
                                 
                                 <div class="text-center">
@@ -157,30 +157,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
-    <div id="Sponsor" class="container">
+    <div id="sponsor" class="container d-none">
 
         <section id="header" class="row">
 
@@ -208,12 +186,9 @@
                                 <div id="userEmail" class="fw-lighter small text-muted">john@gmail.com</div>
                             </div>
 
-                            
-                            
                         </div>
 
                         
-                    
                     </div>
 
                 </header>
@@ -221,46 +196,41 @@
 
         </section>
 
-     
-    
-       
-
-    <section id="section-sponsor" class="row">
 
 
-        
-    
-        <div class="row">
+        <section id="section-sponsor" class="row">
+            
+            <div class="row">
 
-            <div class="d-flex justify-content-center my-4 gap-3">
-                <button type="button" class="btn btn-dark-green">Sponsored History</button>
-                <button type="button" class="btn btn-dark-green">Browse Request</button>
+                <div class="d-flex justify-content-center my-4 gap-3">
+                    <button type="button" class="btn btn-dark-green">Sponsored History</button>
+                    <button type="button" class="btn btn-dark-green">Browse Request</button>
+                </div>
+
             </div>
 
-        </div>
+            <div  id="card-container" class="row ">
 
-        <div  id="card-container" class="row ">
+                <div class="container my-4">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </form>
+                </div>
 
-            <div class="container my-4">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-primary" type="submit">Search</button>
-                </form>
+
+
             </div>
 
 
-
-        </div>
-
-
-            <!-- Donation Modal -->
-        <div class="modal fade" id="select_donation_amount" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Donation Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
+                <!-- Donation Modal -->
+            <div class="modal fade" id="select_donation_amount" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Donation Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
             <div class="modal-body">
                 <label for="donation_amount" class="form-label">Donation Amount</label>
                     <select class="form-select" id="donation_amount" name="donation_amount" required>
@@ -270,13 +240,13 @@
                         <option value="20">20$</option>
                         <option value="100">100$</option>
                     </select>
-                    <button id="open-payment-modal" type="button" class="btn btn-primary" style="margin-top: 1rem;">Payment Details</button>
+                        <button id="open-payment-modal" type="button" class="btn btn-primary" style="margin-top: 1rem;">Payment Details</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Payment Modal -->
+            <!-- Payment Modal -->
             <div class="modal fade" id="payment-modal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -308,7 +278,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/lib/jQuery/jquery-3.7.1.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
-<script src="js/treatment-card.js"></script>
+<!-- <script src="js/treatment-card.js"></script> -->
 <!-- <script src="js/navigation.js"></script> -->
 <script src="js/login.js"></script>
 
