@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="css/treatment-card.css">
     <link rel="stylesheet" href="css/auth-styles.css">
     <link rel="stylesheet" href="css/pet-owner.css">
+    <link rel="stylesheet" href="css/sponsor-profile-edit.css">
 </head>
 <body>
 
 
 
-     <div id="login" class="container auth-container d-block">
+     <div id="login" class="container auth-container d-none">
         <div class="container-fluid h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-12 col-md-6 col-lg-4">
@@ -160,7 +161,7 @@
 
 <!-- Main container for Sponsor -->
     
-    <div id="sponsor" class="container d-none">
+    <div id="sponsor" class="container d-block">
 
         <section id="header" class="row">
 
@@ -183,13 +184,10 @@
                                 <img src="https://res.cloudinary.com/dk0c1qe0x/image/upload/v1757702884/zvmqzxwbf3urtbuph4ne.jpg" alt="Profile Picture" id="userImageUrl" class="profile-pic" />
                             </div>
                             
-                            <div class="d-flex flex-column ">
+                            <div class="d-flex flex-column " id="userInfoContainer" >
                                 <div id="userName" class="fw-normal">John Doe</div>
                                 <div id="userEmail" class="fw-lighter small text-muted">john@gmail.com</div>
                             </div>
-
-                        </div>
-
                         
                     </div>
 
@@ -197,6 +195,65 @@
 
 
         </section>
+
+
+
+
+        <section id="profile-edit-container">
+
+            <div class="row d-flex justify-content-end">
+                                    <!-- Dropdown menu (initially hidden) -->
+                <div id="userOptions" class="col-2 d-flex-row" style="display: none;">
+                    <div id="editProfileBtn" style="padding: 5px; cursor: pointer; text-align: center;">Edit Profile</div>
+                    <div id="logoutBtn" style="padding: 5px; cursor: pointer; text-align: center;">Log out</div>
+
+                </div>
+            </div>
+
+            <div class="row">
+
+
+                <div id="profileEditSection" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 4px;">
+                    <h5 class="form-text text-center fs-3">Edit Profile</h4>
+                    <form id="profileForm">
+
+                        <div class="m-3">
+                            <label for="editName" class="form-label">Name:</label><br>
+                            <input type="text" id="editName" name="editName" value="John Doe" class="form-control" />
+                        </div>
+
+                        <div class="m-3">
+                            <label for="editEmail" class="form-label">Email</label><br>
+                            <input type="email" id="editEmail" name="editEmail" value="john@gmail.com" class="form-control"" />
+                        </div>
+
+
+
+            
+                        <div class="col- m-3">
+                            <label for="userImageEdit" class="form-label">Upload User Image: </label>
+                            <input type="file" class="form-control" id="userImageEdit" accept="image/*">
+                            <div class="form-text mt-1">Upload Your Clear Image</div>
+                        </div>
+
+
+
+
+                        <button type="button" class="btn btn-success m-3">Save</button>
+                        <button type="button" id="cancelEdit" class="btn btn-light m-3">Cancel</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+
+
 
 
 
@@ -616,6 +673,7 @@
 <!-- <script src="js/navigation.js"></script> -->
 <script src="js/login.js"></script>
 <script src="js/pet-owner-script.js"></script>
+<script src="js/profile-eidt-script.js"></script>
 
 </body>
 </html>
