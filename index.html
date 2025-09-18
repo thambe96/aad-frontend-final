@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>index</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/treatment-card.css">
     <link rel="stylesheet" href="css/auth-styles.css">
+    <link rel="stylesheet" href="css/pet-owner.css">
 </head>
 <body>
 
 
 
-     <div id="login" class="container auth-container">
+     <div id="login" class="container auth-container d-block">
         <div class="container-fluid h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-12 col-md-6 col-lg-4">
@@ -275,12 +277,315 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Main Content -->
+    <div id="pet-owner-container" class="container d-none">
+
+
+
+
+
+
+        <div class="container-fluid">
+
+
+        <!-- Navigation -->
+
+
+<!--         
+            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+                <div class="container">
+                    <a class="navbar-brand fw-bold text-primary" href="#">
+                        <i class="fas fa-heart me-2"></i>PetCare Funding
+                    </a>
+                    <div class="navbar-nav ms-auto">
+                        <span class="navbar-text">Welcome, Pet Owner</span>
+                        <button class="btn btn-outline-primary ms-3" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </nav>
+
+
+
+ -->
+
+
+            
+            <section id="header" class="row">
+
+                    <header class="header-container d-flex justify-content-between align-items-center">
+                        <!-- Left corner -->
+                        <div class="site-name fs-4 fw-bold">
+                            PetCare Fund
+                        </div>
+                        <!-- Right corner -->
+                        <div class="d-flex align-items-center">
+
+                            <div class="me-5">
+                                <span id="userRolePetOwner" class="badge bg-primary ms-2">Sponsor</span>
+                            </div>
+
+
+                            <div class="me-3 d-flex justify-content-between align-items-center">
+
+                                <div>
+                                    <img src="https://res.cloudinary.com/dk0c1qe0x/image/upload/v1757702884/zvmqzxwbf3urtbuph4ne.jpg" alt="Profile Picture" id="userImageUrlPetOwner" class="profile-pic" />
+                                </div>
+                                
+                                <div class="d-flex flex-column ">
+                                    <div id="userNamePetOwner" class="fw-normal">John Doe</div>
+                                    <div id="userEmailpetOwner" class="fw-lighter small text-muted">john@gmail.com</div>
+                                </div>
+
+                            </div>
+
+                            
+                        </div>
+
+                    </header>
+
+
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Dashboard Header -->
+
+
+<!-- 
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="display-6 fw-bold text-primary mb-2">Pet Owner Dashboard</h1>
+                    <p class="text-muted">Manage your pets and treatment requests</p>
+                </div>
+            </div>
+ -->
+
+
+
+            <!-- Action Buttons -->
+            <div class="row mb-5 mt-4">
+                <div class="col-12 d-flex justify-content-center">
+                    <button class="btn btn-primary me-3" onclick="showPetRegistration()">
+                        <i class="fas fa-plus-circle me-2"></i>Register New Pet
+                    </button>
+                    <button class="btn btn-success" onclick="showTreatmentRequest()">
+                        <i class="fas fa-heart me-2"></i>Create Treatment Request
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pet Registration Form (Hidden by default) -->
+            <div id="petRegistrationSection" class="row mb-5" style="display: none;">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Register Your Pet</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="petRegistrationForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petName" class="form-label">Pet Name *</label>
+                                        <input type="text" class="form-control" id="petName" placeholder="e.g., Buddy, Luna, Max" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petBreed" class="form-label">Dog Breed *</label>
+                                        <input type="text" class="form-control" id="petBreed" placeholder="e.g., Golden Retriever, Labrador" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petAge" class="form-label">Age *</label>
+                                        <input type="text" class="form-control" id="petAge" placeholder="e.g., 3 years, 6 months" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petWeight" class="form-label">Weight</label>
+                                        <input type="text" class="form-control" id="petWeight" placeholder="e.g., 25 lbs, 15 kg">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petGender" class="form-label">Gender</label>
+                                        <select class="form-select" id="petGender">
+                                            <option value="">Select gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petColor" class="form-label">Color/Markings</label>
+                                        <input type="text" class="form-control" id="petColor" placeholder="e.g., Brown and white, Black">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="petPhoto" class="form-label">Pet Photo</label>
+                                        <input type="file" class="form-control" id="petPhoto" accept="image/*">
+                                        <div class="form-text">Upload a clear photo of your pet</div>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="medicalHistory" class="form-label">Medical History</label>
+                                        <textarea class="form-control" id="medicalHistory" rows="3" placeholder="Previous surgeries, chronic conditions, injuries..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-secondary" onclick="hidePetRegistration()">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Register Pet</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment Request Form (Hidden by default) -->
+            <div id="treatmentRequestSection" class="row mb-5" style="display: none;">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="fas fa-heart me-2"></i>Create Treatment Request</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="treatmentRequestForm">
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <label for="selectPet" class="form-label">Select Your Pet *</label>
+                                        <select class="form-select" id="selectPet" required>
+                                            <option value="">Choose your pet</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="treatmentName" class="form-label">Treatment Name *</label>
+                                        <input type="text" class="form-control" id="treatmentName" placeholder="e.g., Emergency Surgery for Broken Leg" required>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="treatmentDescription" class="form-label">Description *</label>
+                                        <textarea class="form-control" id="treatmentDescription" rows="4" placeholder="Describe your pet's condition and the needed treatment..." required></textarea>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="treatmentCost" class="form-label">Treatment Cost *</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control" id="treatmentCost" placeholder="0.00" step="0.01" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="urgency" class="form-label">Urgency Level *</label>
+                                        <select class="form-select" id="urgency" required>
+                                            <option value="">Select urgency</option>
+                                            <option value="critical">Critical - Immediate care needed</option>
+                                            <option value="urgent">Urgent - Within 1-2 weeks</option>
+                                            <option value="moderate">Moderate - Within 1 month</option>
+                                            <option value="routine">Routine - Ongoing care</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="medicalDocuments" class="form-label">Medical Documents</label>
+                                        <input type="file" class="form-control" id="medicalDocuments" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                        <div class="form-text">Upload vet reports, X-rays, test results (PDF, DOC, images)</div>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="petPhotos" class="form-label">Pet Photos</label>
+                                        <input type="file" class="form-control" id="petPhotos" multiple accept="image/*">
+                                        <div class="form-text">Recent photos of your pet (optional but recommended)</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-secondary" onclick="hideTreatmentRequest()">Cancel</button>
+                                    <button type="submit" class="btn btn-success">Submit Treatment Request</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registered Pets Section -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h3 class="fw-bold text-primary mb-3">Your Registered Pets</h3>
+                    <div id="registeredPets" class="row">
+                        <!-- Pets will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment Requests Section -->
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="fw-bold text-primary mb-3">Your Treatment Requests</h3>
+                    <div id="treatmentRequests" class="row">
+                        <!-- Treatment requests will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/lib/jQuery/jquery-3.7.1.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <!-- <script src="js/treatment-card.js"></script> -->
 <!-- <script src="js/navigation.js"></script> -->
 <script src="js/login.js"></script>
+<script src="js/pet-owner-script.js"></script>
 
 </body>
 </html>

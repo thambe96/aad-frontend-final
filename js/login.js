@@ -10,6 +10,18 @@
  let userRole = $('#userRole');
  let userImageUrl = $('#userImageUrl');
 
+
+let userNamePetOwner = $('#userNamePetOwner');
+let userEmailPetOwner = $('#userEmailPetOwner');
+let userRolePetOwner = $('#userRolePetOwner');
+let userImageUrlPetOwner = $('#userImageUrlPetOwner');
+
+
+
+
+
+
+
  const createUserBtn = $('#createAccountBtn');
 
 let name;
@@ -255,16 +267,11 @@ loginBtn.on('click', function(e) {
 
             let role = payloadJson.role;
 
-            userName.text(payloadJson.sub);
-            userEmail.text(payloadJson.email);
-            userRole.text(payloadJson.role);
+          
 
             let usrImgUrl = payloadJson.userImageUrl;
 
-            if(usrImgUrl) {
-                $('#userImageUrl').attr('src', usrImgUrl);
-            }
-
+         
             
 
 
@@ -277,9 +284,35 @@ loginBtn.on('click', function(e) {
                 $("#section-admin").show();
                 loadAdminData(token);
             } else if (role === "PET_OWNER") {
-                $("#section-petowner").show();
+
+
+                userNamePetOwner.text(payloadJson.sub);
+                userEmailPetOwner.text(payloadJson.email);
+                userRolePetOwner.text(payloadJson.role);
+
+                if(usrImgUrl) {
+                    userImageUrlPetOwner.attr('src', usrImgUrl);
+                }
+
+
+
+
+
+                $('#pet-owner-container').removeClass('d-none').addClass('d-block')
                 loadPetOwnerData(token);
             } else if (role === "SPONSOR") {
+
+
+                userName.text(payloadJson.sub);
+                userEmail.text(payloadJson.email);
+                userRole.text(payloadJson.role);
+
+                if(usrImgUrl) {
+                    $('#userImageUrl').attr('src', usrImgUrl);
+                }
+
+
+
 
                 // alert("Role block >>")
                 // $("#sponsor").show();
@@ -318,20 +351,35 @@ function loadAdminData(token) {
     });
 }
 
+
+
+
+
+
 function loadPetOwnerData(token) {
 
-    
-    $.ajax({
-        url: "http://localhost:8080/api/v1/petowner/dashboard",
-        type: "GET",
-        headers: { "Authorization": "Bearer " + token },
-        success: function(data) {
-            // $("#petowner-data").html("<pre>" + JSON.stringify(data, null, 2) + "</pre>");
-        },
-        error: function(err) {
-            console.error("Pet owner data fetch failed:", err);
-        }
-    });
+    $('#login').addClass('d-none');
+
+
+
+    // $.ajax({
+    //     url: "http://localhost:8080/api/v1/petowner/dashboard",
+    //     type: "GET",
+    //     headers: { "Authorization": "Bearer " + token },
+    //     success: function(data) {
+    //         // $("#petowner-data").html("<pre>" + JSON.stringify(data, null, 2) + "</pre>");
+    //     },
+    //     error: function(err) {
+    //         console.error("Pet owner data fetch failed:", err);
+    //     }
+    // });
+
+
+
+
+
+
+
 }
 
 
