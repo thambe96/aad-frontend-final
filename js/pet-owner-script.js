@@ -2,6 +2,14 @@
 let registeredPets = []
 let treatmentRequests = []
 
+
+
+
+
+
+
+
+
 // Initialize the application
 document.addEventListener("DOMContentLoaded", () => {
   loadSampleData()
@@ -10,8 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
   updatePetSelect()
 
   // Form event listeners
-  document.getElementById("petRegistrationForm").addEventListener("submit", handlePetRegistration)
+
+
+
+//   document.getElementById("petRegistrationForm").addEventListener("submit", handlePetRegistration)
+
+
   document.getElementById("treatmentRequestForm").addEventListener("submit", handleTreatmentRequest)
+
+
+
 })
 
 // Load sample data
@@ -25,7 +41,7 @@ function loadSampleData() {
       weight: "65 lbs",
       gender: "male",
       color: "Golden",
-      photo: "/cute-golden-retriever.png",
+      photo: "https://res.cloudinary.com/dk0c1qe0x/image/upload/v1756970463/qbwuss0ln6ajyqvqyswe.jpg",
       medicalHistory: "No major health issues. Regular checkups.",
     },
     {
@@ -36,7 +52,7 @@ function loadSampleData() {
       weight: "8 lbs",
       gender: "female",
       color: "White",
-      photo: "/white-persian-cat.jpg",
+      photo: "https://res.cloudinary.com/dk0c1qe0x/image/upload/v1757703047/zxz31jkrmmkswbys1grl.jpg",
       medicalHistory: "Mild respiratory issues due to breed characteristics.",
     },
   ]
@@ -57,6 +73,16 @@ function loadSampleData() {
     },
   ]
 }
+
+
+
+
+
+
+
+
+
+
 
 // Show/Hide sections
 function showPetRegistration() {
@@ -83,7 +109,22 @@ function hideTreatmentRequest() {
   document.getElementById("treatmentRequestSection").style.display = "none"
 }
 
+
+
+
+
+
+
+
+
+
 // Handle pet registration
+
+
+
+
+/*
+
 function handlePetRegistration(e) {
   e.preventDefault()
 
@@ -113,6 +154,119 @@ function handlePetRegistration(e) {
   // Show success message
   showAlert("Pet registered successfully!", "success")
 }
+
+
+*/
+
+$('#registerPetBtn').on('click', function(e) {
+
+
+    e.preventDefault();
+    createPetDog();
+    // debutController();
+
+
+})
+
+
+
+function debutController() {
+
+    $.ajax({
+    url: "http://localhost:8080/api/v1/debug/testAuth",
+    type: "GET",
+    headers: {
+        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+    },
+    success: function (response) {
+        alert("Response: " + response);
+    },
+    error: function (err) {
+        console.error("Auth test failed:", err);
+    }
+});
+
+
+
+
+
+}
+
+
+function createPetDog() {
+    // Get token from localStorage (assuming you stored it after login)
+
+
+    let token = localStorage.getItem("jwtToken");
+    let userId = localStorage.getItem("userId");
+
+    // Create FormData object
+    let formData = new FormData();
+
+    // Get file from your input field
+    let imageFile = $("#petPhoto")[0].files[0];
+    formData.append("images", imageFile);
+
+
+
+    // dogName":"Luna", "dogBreed":"SL hound", "dogAge":2, "owner": {"id":4, "name": "Anthony", "age": 25, 
+    // "gender": "Male", "email": "antony@gmail.com", "role": "PET_OWNER"}
+
+
+
+    // $('#userRolePetOwner').val()
+
+    // JSON details
+    let details = {
+        dogName: $('#petName').val(),
+        dogBreed:$('#petBreed').val(),
+        dogAge: $('#petAge').val(),
+        owner: {
+            id: userId,
+            name: $('#userNamePetOwner').val(),
+            age: 25,
+            gender: "Male",
+            email: $('#userEmailpetOwner').val(),
+            role: "PET_OWNER"
+        }
+    };
+
+    // Append JSON as a Blob with application/json type
+    formData.append("details", JSON.stringify(details));
+
+    // AJAX call
+    $.ajax({
+        url: "http://localhost:8080/api/v1/petDog/createPetDogTest",
+        type: "POST",
+        data: formData,
+        processData: false,   // prevent query string conversion
+        contentType: false,   // let browser set proper multipart/form-data boundary
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+        success: function (response) {
+            console.log("✅ Pet dog created:", response);
+            alert("Pet dog created successfully!");
+        },
+        error: function (err) {
+            console.error("❌ Error creating pet dog:", err);
+            alert("Failed to create pet dog!");
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Handle treatment request
 function handleTreatmentRequest(e) {
@@ -160,7 +314,7 @@ function renderRegisteredPets() {
       (pet) => `
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card pet-card h-100">
-                <img src="https://res.cloudinary.com/dk0c1qe0x/image/upload/v1756970463/qbwuss0ln6ajyqvqyswe.jpg" class="pet-image-owner" alt="${pet.name}">
+                <img src="${pet.photo}" class="pet-image-owner" alt="${pet.name}">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">${pet.name}</h5>
                     <p class="card-text">

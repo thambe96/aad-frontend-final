@@ -158,7 +158,7 @@
 
 
 
-
+<!-- Main container for Sponsor -->
     
     <div id="sponsor" class="container d-none">
 
@@ -289,7 +289,7 @@
 
 
 
-        <!-- Main Content -->
+        <!-- Main Content for Pet Owner -->
     <div id="pet-owner-container" class="container d-none">
 
 
@@ -440,38 +440,68 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="petAge" class="form-label">Age *</label>
-                                        <input type="text" class="form-control" id="petAge" placeholder="e.g., 3 years, 6 months" required>
+                                        <input type="number" class="form-control" id="petAge" placeholder="e.g., 3" required>
                                     </div>
+
+
+<!-- 
+
                                     <div class="col-md-6 mb-3">
                                         <label for="petWeight" class="form-label">Weight</label>
                                         <input type="text" class="form-control" id="petWeight" placeholder="e.g., 25 lbs, 15 kg">
                                     </div>
-                                    <div class="col-md-6 mb-3">
+ -->
+
+
+
+
+
+                                    <!-- <div class="col-md-6 mb-3">
                                         <label for="petGender" class="form-label">Gender</label>
                                         <select class="form-select" id="petGender">
                                             <option value="">Select gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
                                         </select>
-                                    </div>
+                                    </div> -->
+
+
+
+<!-- 
+
                                     <div class="col-md-6 mb-3">
                                         <label for="petColor" class="form-label">Color/Markings</label>
                                         <input type="text" class="form-control" id="petColor" placeholder="e.g., Brown and white, Black">
                                     </div>
+
+ -->
+
+
                                     <div class="col-12 mb-3">
                                         <label for="petPhoto" class="form-label">Pet Photo</label>
                                         <input type="file" class="form-control" id="petPhoto" accept="image/*">
                                         <div class="form-text">Upload a clear photo of your pet</div>
                                     </div>
+
+<!-- 
+
                                     <div class="col-12 mb-3">
                                         <label for="medicalHistory" class="form-label">Medical History</label>
                                         <textarea class="form-control" id="medicalHistory" rows="3" placeholder="Previous surgeries, chronic conditions, injuries..."></textarea>
-                                    </div>
+                                    </div> -->
+
+
+
                                 </div>
+
+
                                 <div class="d-flex gap-2">
-                                    <button type="button" class="btn btn-secondary" onclick="hidePetRegistration()">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Register Pet</button>
+                                    <button type="button"  class="btn btn-secondary" onclick="hidePetRegistration()">Cancel</button>
+                                    <button type="button" id="registerPetBtn" class="btn btn-primary">Register Pet</button>
                                 </div>
+
+
+
                             </form>
                         </div>
                     </div>

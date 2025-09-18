@@ -249,7 +249,17 @@ loginBtn.on('click', function(e) {
             // alert(JSON.stringify(response));
 
             // Split the token
+            localStorage.clear();
+
+            
+
+
             let token = response.data.accessToken;
+            // console.log('bear token :' + token);
+
+            console.log('bear token :' + token);
+
+            localStorage.setItem('jwtToken', token);
 
             let payloadBase64 = token.split('.')[1];  // take the middle part
             let payloadDecoded = atob(payloadBase64); // decode base64
@@ -270,6 +280,10 @@ loginBtn.on('click', function(e) {
           
 
             let usrImgUrl = payloadJson.userImageUrl;
+
+            let userId = payloadJson.id;
+
+            localStorage.setItem('userId', userId);
 
          
             
