@@ -12,23 +12,50 @@ let treatmentRequests = []
 
 // Initialize the application
 document.addEventListener("DOMContentLoaded", () => {
+
+
+
+    /*
   loadSampleData()
   renderRegisteredPets()
   renderTreatmentRequests()
   updatePetSelect()
 
-  // Form event listeners
 
+  */
+  // Form event listeners
 
 
 //   document.getElementById("petRegistrationForm").addEventListener("submit", handlePetRegistration)
 
-
-  document.getElementById("treatmentRequestForm").addEventListener("submit", handleTreatmentRequest)
-
+//   document.getElementById("treatmentRequestForm").addEventListener("submit", handleTreatmentRequest)
 
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Load sample data
 function loadSampleData() {
@@ -55,6 +82,32 @@ function loadSampleData() {
       photo: "https://res.cloudinary.com/dk0c1qe0x/image/upload/v1757703047/zxz31jkrmmkswbys1grl.jpg",
       medicalHistory: "Mild respiratory issues due to breed characteristics.",
     },
+     {
+      id: "3",
+      name: "Bravo",
+      breed: "Larador",
+      age: "3 years",
+      weight: "10 lbs",
+      gender: "male",
+      color: "White",
+      photo: "https://res.cloudinary.com/dk0c1qe0x/image/upload/v1758197338/hkbmqpwmqcxxeggfzw6g.jpg",
+      medicalHistory: "Mild respiratory issues due to breed characteristics.",
+    },
+
+    {
+      id: "3",
+      name: "Bravo",
+      breed: "Larador",
+      age: "3 years",
+      weight: "10 lbs",
+      gender: "male",
+      color: "White",
+      photo: "https://res.cloudinary.com/dk0c1qe0x/image/upload/v1758197338/hkbmqpwmqcxxeggfzw6g.jpg",
+      medicalHistory: "Mild respiratory issues due to breed characteristics.",
+    }
+
+
+
   ]
 
   treatmentRequests = [
@@ -68,7 +121,7 @@ function loadSampleData() {
       cost: 3500,
       raised: 1200,
       urgency: "urgent",
-      photo: "/cute-golden-retriever.png",
+      photo: "https://res.cloudinary.com/dk0c1qe0x/image/upload/v1757703047/zxz31jkrmmkswbys1grl.jpg",
       dateCreated: "2024-01-15",
     },
   ]
@@ -91,9 +144,23 @@ function showPetRegistration() {
   document.getElementById("petRegistrationSection").scrollIntoView({ behavior: "smooth" })
 }
 
+
+
+
+
+
+
+
 function hidePetRegistration() {
   document.getElementById("petRegistrationSection").style.display = "none"
 }
+
+
+
+
+
+
+
 
 function showTreatmentRequest() {
   if (registeredPets.length === 0) {
@@ -104,6 +171,14 @@ function showTreatmentRequest() {
   document.getElementById("petRegistrationSection").style.display = "none"
   document.getElementById("treatmentRequestSection").scrollIntoView({ behavior: "smooth" })
 }
+
+
+
+
+
+
+
+
 
 function hideTreatmentRequest() {
   document.getElementById("treatmentRequestSection").style.display = "none"
@@ -158,6 +233,17 @@ function handlePetRegistration(e) {
 
 */
 
+
+
+
+
+
+
+
+
+
+
+
 $('#registerPetBtn').on('click', function(e) {
 
 
@@ -167,6 +253,15 @@ $('#registerPetBtn').on('click', function(e) {
 
 
 })
+
+
+
+
+
+
+
+
+
 
 
 
@@ -191,6 +286,20 @@ function debutController() {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function createPetDog() {
@@ -268,6 +377,8 @@ function createPetDog() {
 
 
 
+
+
 // Handle treatment request
 function handleTreatmentRequest(e) {
   e.preventDefault()
@@ -299,8 +410,32 @@ function handleTreatmentRequest(e) {
   showAlert("Treatment request created successfully!", "success")
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Render registered pets
+
+
+/*
 function renderRegisteredPets() {
+
+
+
   const container = document.getElementById("registeredPets")
 
   if (registeredPets.length === 0) {
@@ -308,6 +443,11 @@ function renderRegisteredPets() {
       '<div class="col-12"><p class="text-muted">No pets registered yet. Click "Register New Pet" to get started.</p></div>'
     return
   }
+
+
+
+
+
 
   container.innerHTML = registeredPets
     .map(
@@ -323,7 +463,9 @@ function renderRegisteredPets() {
                         ${pet.weight ? `<strong>Weight:</strong> ${pet.weight}<br>` : ""}
                         ${pet.color ? `<strong>Color:</strong> ${pet.color}` : ""}
                     </p>
-                    ${pet.medicalHistory ? `<p class="card-text"><small class="text-muted">${pet.medicalHistory}</small></p>` : ""}
+
+
+
                 </div>
             </div>
         </div>
@@ -332,15 +474,49 @@ function renderRegisteredPets() {
     .join("")
 }
 
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Render treatment requests
 function renderTreatmentRequests() {
+
+
+
+
   const container = document.getElementById("treatmentRequests")
+
+
+
+
+
 
   if (treatmentRequests.length === 0) {
     container.innerHTML =
       '<div class="col-12"><p class="text-muted">No treatment requests yet. Click "Create Treatment Request" to get started.</p></div>'
     return
   }
+
+
+
+
 
   container.innerHTML = treatmentRequests
     .map((request) => {
@@ -379,6 +555,17 @@ function renderTreatmentRequests() {
     .join("")
 }
 
+
+
+
+
+
+
+
+
+
+
+
 // Update pet select dropdown
 function updatePetSelect() {
   const select = document.getElementById("selectPet")
@@ -386,6 +573,16 @@ function updatePetSelect() {
     '<option value="">Choose your pet</option>' +
     registeredPets.map((pet) => `<option value="${pet.id}">${pet.name} - ${pet.breed}</option>`).join("")
 }
+
+
+
+
+
+
+
+
+
+
 
 // Show alert message
 function showAlert(message, type) {
@@ -403,6 +600,13 @@ function showAlert(message, type) {
     alertDiv.remove()
   }, 3000)
 }
+
+
+
+
+
+
+
 
 // Logout function
 function logout() {

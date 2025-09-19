@@ -15,7 +15,7 @@
 
 
 
-     <div id="login" class="container auth-container d-none">
+     <div id="login" class="container auth-container d-block">
         <div class="container-fluid h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-12 col-md-6 col-lg-4">
@@ -161,7 +161,7 @@
 
 <!-- Main container for Sponsor -->
     
-    <div id="sponsor" class="container d-block">
+    <div id="sponsor" class="container d-none">
 
         <section id="header" class="row">
 
@@ -206,6 +206,7 @@
                 <div id="userOptions" class="col-2 d-flex-row" style="display: none;">
                     <div id="editProfileBtn" style="padding: 5px; cursor: pointer; text-align: center;">Edit Profile</div>
                     <div id="logoutBtn" style="padding: 5px; cursor: pointer; text-align: center;">Log out</div>
+                    <div id="editProfilePicBtn" style="padding: 5px; cursor: pointer; text-align: center;">Profile Picture</div>
 
                 </div>
             </div>
@@ -228,17 +229,6 @@
                         </div>
 
 
-
-            
-                        <div class="col- m-3">
-                            <label for="userImageEdit" class="form-label">Upload User Image: </label>
-                            <input type="file" class="form-control" id="userImageEdit" accept="image/*">
-                            <div class="form-text mt-1">Upload Your Clear Image</div>
-                        </div>
-
-
-
-
                         <button type="button" class="btn btn-success m-3">Save</button>
                         <button type="button" id="cancelEdit" class="btn btn-light m-3">Cancel</button>
                     </form>
@@ -246,6 +236,27 @@
 
 
             </div>
+
+
+            <div id="profilePictureChange" class="row" style="display: none;">
+
+        
+                <div class="col-12 m-3">
+                    <label for="userImageEdit" class="form-label">Upload User Image: </label>
+                    <input type="file" class="form-control" id="userImageEdit" accept="image/*">
+                    <div class="form-text mt-1">Upload Your Clear Image</div>
+                    <button type="button" id="uploadProfilePic" class="btn btn-success m-3">Upload</button>
+                    <button type="button" id="cancelUpload" class="btn btn-light m-3">Cancel</button>
+                </div>
+
+
+
+            </div>
+
+
+
+
+
 
 
         </section>
@@ -467,14 +478,25 @@
 
             <!-- Action Buttons -->
             <div class="row mb-5 mt-4">
+
+
                 <div class="col-12 d-flex justify-content-center">
+
+
                     <button class="btn btn-primary me-3" onclick="showPetRegistration()">
                         <i class="fas fa-plus-circle me-2"></i>Register New Pet
                     </button>
-                    <button class="btn btn-success" onclick="showTreatmentRequest()">
-                        <i class="fas fa-heart me-2"></i>Create Treatment Request
+
+
+                    <button id="treatmentReq" class="btn btn-success">
+                        <i class="fas fa-heart me-2"></i>Treatment Requests
                     </button>
+
+
                 </div>
+
+
+
             </div>
 
             <!-- Pet Registration Form (Hidden by default) -->
@@ -566,7 +588,7 @@
             </div>
 
             <!-- Treatment Request Form (Hidden by default) -->
-            <div id="treatmentRequestSection" class="row mb-5" style="display: none;">
+            <div id="treatmentRequestSection" class="row mb-5 d-none" >
                 <div class="col-12">
                     <div class="card shadow-sm">
                         <div class="card-header bg-success text-white">
@@ -574,28 +596,47 @@
                         </div>
                         <div class="card-body">
                             <form id="treatmentRequestForm">
+
+
                                 <div class="row">
+
+
+
                                     <div class="col-12 mb-3">
                                         <label for="selectPet" class="form-label">Select Your Pet *</label>
                                         <select class="form-select" id="selectPet" required>
                                             <option value="">Choose your pet</option>
                                         </select>
                                     </div>
+
+
+
                                     <div class="col-12 mb-3">
                                         <label for="treatmentName" class="form-label">Treatment Name *</label>
                                         <input type="text" class="form-control" id="treatmentName" placeholder="e.g., Emergency Surgery for Broken Leg" required>
                                     </div>
+
+
+
                                     <div class="col-12 mb-3">
                                         <label for="treatmentDescription" class="form-label">Description *</label>
                                         <textarea class="form-control" id="treatmentDescription" rows="4" placeholder="Describe your pet's condition and the needed treatment..." required></textarea>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+
+
+
+                                    <div class="col-md-12 mb-3">
                                         <label for="treatmentCost" class="form-label">Treatment Cost *</label>
                                         <div class="input-group">
                                             <span class="input-group-text">$</span>
                                             <input type="number" class="form-control" id="treatmentCost" placeholder="0.00" step="0.01" required>
                                         </div>
                                     </div>
+
+
+
+<!--                                     
+
                                     <div class="col-md-6 mb-3">
                                         <label for="urgency" class="form-label">Urgency Level *</label>
                                         <select class="form-select" id="urgency" required>
@@ -605,22 +646,45 @@
                                             <option value="moderate">Moderate - Within 1 month</option>
                                             <option value="routine">Routine - Ongoing care</option>
                                         </select>
-                                    </div>
+                                    </div> -->
+
+
+
+
+<!-- 
+                                    
                                     <div class="col-12 mb-3">
                                         <label for="medicalDocuments" class="form-label">Medical Documents</label>
                                         <input type="file" class="form-control" id="medicalDocuments" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
                                         <div class="form-text">Upload vet reports, X-rays, test results (PDF, DOC, images)</div>
                                     </div>
+
+
+
+
+
+
                                     <div class="col-12 mb-3">
                                         <label for="petPhotos" class="form-label">Pet Photos</label>
                                         <input type="file" class="form-control" id="petPhotos" multiple accept="image/*">
                                         <div class="form-text">Recent photos of your pet (optional but recommended)</div>
                                     </div>
+ -->
+
+
+
+
+
                                 </div>
+
+
                                 <div class="d-flex gap-2">
                                     <button type="button" class="btn btn-secondary" onclick="hideTreatmentRequest()">Cancel</button>
                                     <button type="submit" class="btn btn-success">Submit Treatment Request</button>
                                 </div>
+
+
+
                             </form>
                         </div>
                     </div>
@@ -629,12 +693,29 @@
 
             <!-- Registered Pets Section -->
             <div class="row mb-5">
+
+
+
                 <div class="col-12">
+
+
                     <h3 class="fw-bold text-primary mb-3">Your Registered Pets</h3>
+
+
                     <div id="registeredPets" class="row">
+
+
                         <!-- Pets will be dynamically added here -->
+
+
+
                     </div>
+
+
                 </div>
+
+
+
             </div>
 
             <!-- Treatment Requests Section -->

@@ -314,6 +314,9 @@ loginBtn.on('click', function(e) {
 
                 $('#pet-owner-container').removeClass('d-none').addClass('d-block')
                 loadPetOwnerData(token);
+
+
+
             } else if (role === "SPONSOR") {
 
 
@@ -374,20 +377,120 @@ function loadPetOwnerData(token) {
 
     $('#login').addClass('d-none');
 
+    let userId = localStorage.getItem('userId');
+
+    console.log('This is user ID :: ' + userId);
+
+    $.ajax({
+        url: `http://localhost:8080/api/v1/petDog/user/${userId}`,
+        type: "GET",
+        headers: { "Authorization": "Bearer " + token },
+        success: function(data) {
 
 
-    // $.ajax({
-    //     url: "http://localhost:8080/api/v1/petowner/dashboard",
-    //     type: "GET",
-    //     headers: { "Authorization": "Bearer " + token },
-    //     success: function(data) {
-    //         // $("#petowner-data").html("<pre>" + JSON.stringify(data, null, 2) + "</pre>");
-    //     },
-    //     error: function(err) {
-    //         console.error("Pet owner data fetch failed:", err);
-    //     }
-    // });
+            // $("#petowner-data").html("<pre>" + JSON.stringify(data, null, 2) + "</pre>");
 
+            // $('#registeredPets')
+            // console.log(jason.stringify(data))
+
+
+            console.log("SuccessFull !!!");
+
+            alert(JSON.stringify(data, 2, null));
+
+            console.log(JSON.stringify(data, 2, null))
+
+
+
+            /*
+
+            let petDogId = data.dogId;
+            let petDogName = data.dogname;
+            let petDogBreed = data.dogBreed;
+            let petDogAge = data.dogAge;
+
+            let petDogImgUrl = data.imageListFromDb.petDogImageUrl;
+
+            */
+
+
+            // let petDogImgUrl = data.imageListFromDb.petDogImageUrl;
+            let cleanData = [];
+
+            data.data.forEach(obj => {
+
+                let petDetails = {
+
+                    petDogId: obj.dogId,
+                    petDogName: obj.dogName,
+                    petDogBreed: obj.dogBreed,
+                    petDogAge: obj.dogAge,
+                    petDogImgUrl: obj.imageListFromDb[0].petDogImageUrl
+
+                };
+
+                console.log("---------->>" + obj.imageListFromDb.petDogImageUrl);
+
+                cleanData.push(petDetails);
+
+            });
+
+
+
+           console.log(cleanData);
+
+           
+
+
+
+        
+
+
+
+        cleanData.forEach(function(card) {
+
+
+            let ownerRegPetsCard = `
+           
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card pet-card h-100">
+                    <img src="${card.petDogImgUrl}" class="pet-image-owner" alt="${card.petDogName}">
+                    <div class="card-body">
+
+
+                        <h5 class="card-title fw-bold">${card.petDogName}</h5>
+                        <p class="card-text">
+                            <strong>Breed:</strong> ${card.petDogBreed}<br>
+                            <strong>Age:</strong> ${card.petDogAge}<br>
+                        </p>
+
+
+                    </div>
+                </div>
+            </div>`;
+
+            $('#registeredPets').append(ownerRegPetsCard)
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+        },
+        error: function(err) {
+            console.error("Pet owner data fetch failed:", err);
+        }
+    });
+
+
+    
 
 
 

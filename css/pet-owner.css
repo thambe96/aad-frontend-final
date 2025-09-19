@@ -107,11 +107,11 @@ body {
   background-color: var(--success-color);
 }
 
-.pet-image-ownere {
-  width: 50%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
+.pet-image-owner {
+    width: 100%;            /* take full card width */
+    max-height: 250px;          /* fixed height for all */
+    object-fit: cover;      /* crop without distortion */
+    object-position: center; /* focus on center */
 }
 
 .treatment-image {

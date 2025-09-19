@@ -3,7 +3,8 @@ $(document).ready(function() {
   $('#userInfoContainer').click(function(event) {
     event.stopPropagation(); // Prevent click from bubbling up
     $('#userOptions').toggle();
-    $('#profileEditSection').hide(); // Hide profile edit if open
+    $('#profileEditSection').hide();
+    $('#profilePictureChange').hide() // Hide profile edit if open
   });
   // Hide dropdown if clicking outside
   $(document).click(function() {
@@ -42,3 +43,14 @@ $(document).ready(function() {
   });
 });
 
+
+
+
+  $('#editProfilePicBtn').click(function() {
+    $('#userOptions').hide();
+    $('#profilePictureChange').show();
+  });
+
+   $('#cancelUpload').click(function() {
+    $('#profilePictureChange').hide();
+  });
