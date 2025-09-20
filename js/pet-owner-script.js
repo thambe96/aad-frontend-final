@@ -185,6 +185,233 @@ function hideTreatmentRequest() {
 }
 
 
+$('#treatmentReqHideBtn').on('click', function() {
+
+
+    $('treatmentName').val('');
+    $('treatmentDescription').val('');
+    $('treatmentCost').val('');
+
+    //Hit treatment req form and show petDogs and treatmentRequests
+
+    $('#treatmentRequestSection').addClass('d-none');
+    $('#petOwnerPets').removeClass('d-none').addClass('d-block');
+    $('#PetOwnerTreatmentRequests').removeClass('d-none').addClass('d-block');
+
+});
+
+
+
+/*
+
+
+{
+    "treatmentName": "Luna's back-legs issues",
+    "treatmentDescription": "Luna is suffering from back legs pain. He needs an emergency surgery",
+    "treatmentPrice": 25000.0,
+    "requestStatus": "OPEN",
+    "petDog": 
+    {
+        "dogId": 6,
+        "dogName": "Luna",
+        "dogBreed": "SL hound",
+        "dogAge": 2
+
+    }
+
+}
+
+
+*/
+
+
+
+
+$('#treamentReqSubmitBtn').on('click', function() {
+
+
+
+    // Extract dog data from button attributes
+
+   
+
+
+    
+
+
+    let dogId = window.selectedPetData.dogId;
+    let dogName = window.selectedPetData.dogName;
+    let dogBreed = window.selectedPetData.dogBreed;
+    let dogAge = window.selectedPetData.dogAge;
+
+
+    /*
+    alert("treatmentReq was clicked");
+    alert("Here is the dog id :: " + dogId);
+    alert("Here is the dog name :: " + dogName);
+    alert("Here is the dog breed :: " + dogBreed);
+    alert("Here is the dog age :: " + dogAge);
+    */
+    
+    let treatmentName = $("#treatmentName").val() || `${dogName}'s treatment`;
+    let treatmentDescription = $("#treatmentDescription").val() || `Treatment required for ${dogName}`;
+    let treatmentPrice = $("#treatmentCost").val() || 25000.0;
+
+    // Build JSON payload
+
+
+    /*
+    
+    let requestData = {
+        treatmentName: treatmentName,
+        treatmentDescription: treatmentDescription,
+        treatmentPrice: treatmentPrice,
+        requestStatus: "OPEN",
+        petDog: {
+            dogId: dogId,
+            dogName: dogName,
+            dogBreed: dogBreed,
+            dogAge: dogAge
+        }
+    };
+
+    */
+
+    let token = localStorage.getItem("jwtToken");
+
+    // console.log("JWT TOKEN :: " + token);
+
+    // Send AJAX request
+    // /api/v1/debug
+    // http://localhost:8080/api/v1/treatmentReqController/createTreatmentRequest
+    // http://localhost:8080/api/v1/debug/testAuth
+
+
+
+    // console.log(dogId);
+
+
+    // Build JSON payload
+
+    /*
+    let requestData = {
+        treatmentName: treatmentName,
+        treatmentDescription: treatmentDescription,
+        treatmentPrice: treatmentPrice,
+        requestStatus: "OPEN",
+        petDog: {
+            dogId: dogId,
+            dogName: dogName,
+            dogBreed: dogBreed,
+            dogAge: dogAge
+        }
+    };
+
+    let token = localStorage.getItem("jwtToken");
+
+    // Send AJAX request
+    $.ajax({
+        url: "http://localhost:8080/api/v1/treatmentReqController/create",
+        type: "POST",
+        contentType: "application/json",
+        headers: { "Authorization": "Bearer " + token },
+        data: JSON.stringify(requestData),
+        success: function (response) {
+            console.log("✅ Treatment request created:", response);
+            alert("Treatment request submitted successfully!");
+        },
+        error: function (err) {
+            console.error("❌ Error creating treatment request:", err);
+            alert("Failed to create treatment request!");
+        }
+    });
+ 
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+   $.ajax({
+    url: "http://localhost:8080/api/v1/treatmentReqController/createTreatmentRequest",
+    type: "POST",
+    headers: { "Authorization": "Bearer " + token },
+    data: {
+        treatmentName: treatmentName,
+        treatmentDescription: treatmentDescription,
+        treatmentPrice: treatmentPrice,
+        requestStatus: "OPEN",
+        dogId: dogId,
+        dogName: dogName,
+        dogBreed: dogBreed,
+        dogAge: dogAge
+    },
+    success: function (response) {
+        console.log("✅ Treatment request created:", response);
+        alert("Treatment request submitted successfully!");
+
+
+        $("#treatmentName").val('')
+        $("#treatmentDescription").val('');
+        $("#treatmentCost").val('');
+
+
+
+        
+
+        // req section closed - registered pets and requests visible
+
+
+
+        $('#treatmentRequestSection').addClass('d-none');
+        $('#petOwnerPets').addClass('d-block');
+        $('#PetOwnerTreatmentRequests').addClass('d-block');
+
+
+
+
+    },
+    error: function (xhr, status, error) {
+        console.error("❌ Error:", xhr.responseText);
+        alert("Failed to create treatment request!");
+    }
+});
+    
+    
+
+
+    // console.log("Request data being sent:", requestData); // Debug log
+
+
+
+
+});
+
+
+
+
+
+
 
 
 
@@ -419,7 +646,15 @@ function handleTreatmentRequest(e) {
 
 
 
+$('#createRequestBtn').on('click', function() {
 
+
+    let dogName = $('#petDogName').val()
+
+    console.log("-------------->>>>" + dogName)
+
+
+})
 
 
 

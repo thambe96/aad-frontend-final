@@ -450,6 +450,8 @@ function loadPetOwnerData(token) {
         cleanData.forEach(function(card) {
 
 
+
+            /*
             let ownerRegPetsCard = `
            
             <div class="col-md-6 col-lg-4 mb-4">
@@ -457,7 +459,7 @@ function loadPetOwnerData(token) {
                     <img src="${card.petDogImgUrl}" class="pet-image-owner" alt="${card.petDogName}">
                     <div class="card-body">
 
-
+                        
                         <h5 class="card-title fw-bold">${card.petDogName}</h5>
                         <p class="card-text">
                             <strong>Breed:</strong> ${card.petDogBreed}<br>
@@ -466,14 +468,99 @@ function loadPetOwnerData(token) {
 
 
                     </div>
+
+                    <div class="card-footer">
+                        <button type="button"  class="btn btn-success">Request</button>
+                    </div>
                 </div>
             </div>`;
 
-            $('#registeredPets').append(ownerRegPetsCard)
+            */
+
+
+
+            let ownerRegPetsCard = `
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card pet-card h-100">
+                    <img src="${card.petDogImgUrl}" class="pet-image-owner" alt="${card.petDogName}">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">${card.petDogName}</h5>
+                        <p class="card-text">
+                            <strong>Breed:</strong> ${card.petDogBreed}<br>
+                            <strong>Age:</strong> ${card.petDogAge}<br>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button"  
+                            class="btn btn-success request-btn"
+                            data-id="${card.petDogId}"
+                            data-name="${card.petDogName}"
+                            data-breed="${card.petDogBreed}"
+                            data-age="${card.petDogAge}">
+                            Request
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+            $('#registeredPets').append(ownerRegPetsCard);
 
 
         });
 
+
+
+
+        // Listen for clicks on any .request-btn
+        $(document).on("click", ".request-btn", function () {
+
+            $('#treatmentRequestSection').removeClass('d-none').addClass('d-block');
+            $('#petOwnerPets').addClass('d-none');
+            $('#PetOwnerTreatmentRequests').addClass('d-none');
+
+
+
+
+
+            /*
+
+            let dogName = $(this).data("name");
+            let dogBreed = $(this).data("breed");
+            let dogAge = $(this).data("age");
+
+            */
+
+
+            window.selectedPetData = {
+                dogId: $(this).data("id"),
+                dogName: $(this).data("name"), 
+                dogBreed: $(this).data("breed"),
+                dogAge: $(this).data("age")
+            };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // console.log("🐶 Request clicked for:", dogName, dogBreed, dogAge);
+
+            // Example: alert or send AJAX
+            // alert(`Requesting treatment for ${dogName} (${dogBreed}, ${dogAge} years old)`);
+        });
 
 
 

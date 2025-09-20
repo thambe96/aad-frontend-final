@@ -600,7 +600,7 @@
 
                                 <div class="row">
 
-
+<!-- 
 
                                     <div class="col-12 mb-3">
                                         <label for="selectPet" class="form-label">Select Your Pet *</label>
@@ -609,6 +609,8 @@
                                         </select>
                                     </div>
 
+                                 
+ -->
 
 
                                     <div class="col-12 mb-3">
@@ -679,8 +681,8 @@
 
 
                                 <div class="d-flex gap-2">
-                                    <button type="button" class="btn btn-secondary" onclick="hideTreatmentRequest()">Cancel</button>
-                                    <button type="submit" class="btn btn-success">Submit Treatment Request</button>
+                                    <button type="button" id="treatmentReqHideBtn" class="btn btn-secondary" >Cancel</button>
+                                    <button type="button" id="treamentReqSubmitBtn" class="btn btn-success">Submit Request</button>
                                 </div>
 
 
@@ -692,7 +694,7 @@
             </div>
 
             <!-- Registered Pets Section -->
-            <div class="row mb-5">
+            <div id="petOwnerPets" class="row mb-5">
 
 
 
@@ -719,7 +721,7 @@
             </div>
 
             <!-- Treatment Requests Section -->
-            <div class="row">
+            <div id="PetOwnerTreatmentRequests" class="row">
                 <div class="col-12">
                     <h3 class="fw-bold text-primary mb-3">Your Treatment Requests</h3>
                     <div id="treatmentRequests" class="row">
