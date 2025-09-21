@@ -502,7 +502,7 @@ function populateRequestsTable(data) {
                 <td>${req.dogId}</td>
                 <td>${req.requestName}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm change-status-btn" data-id="${req.requestId}">
+                    <button class="btn btn-warning btn-sm change-status-btn" data-id="${req.requestId}" data-status="${req.requestStatus}" ">
                         Change Status
                     </button>
                 </td>
@@ -540,8 +540,73 @@ function populateRequestsTable(data) {
 
 $(document).on("click", ".change-status-btn", function () {
     let reqId = $(this).data("id");
-    alert("Change status clicked for Request ID: " + reqId);
+    let reqStatus = $(this).data("status");
+    // alert("Change status clicked for Request ID: " + reqId);
     // TODO: call backend to update status
+
+    alert(reqId);
+    alert(reqStatus);
+    
+    if(reqStatus === "OPEN"){
+        reqStatus = "OPEN";
+    } else if(reqStatus == "CLOSED") {
+        reqStatus = "OPEN";
+    }
+
+    
+
+
+    $.ajax({
+        url: `http://localhost:8080/api/v1/treatmentReqController/changeStatus/${reqId}`,
+        type: "PUT",
+        headers: { 
+            "Authorization": "Bearer " + localStorage.getItem('jwtToken')
+        },
+        data: {
+            status: reqStatus
+        },
+        success: function (response) {
+
+            alert("Success !! Changing the status");
+
+            console.log("✅ Status changed successfully:", response);
+
+            loadAdminData(localStorage.getItem('jwtToken'));
+
+
+            // alert(`Status updated to: ${newStatus}`);
+            
+            // Optional: Update UI to reflect the change
+            // $(`[data-request-id="${requestId}"]`).find('.status-badge').text(newStatus);
+        },
+        error: function (xhr, status, error) {
+
+
+
+            /*
+                console.error("❌ Status change failed:");
+                console.error("Status:", xhr.status);
+                console.error("Response:", xhr.responseText);
+                console.error("Error:", error);
+            */
+
+            
+            alert("Failed to change status!");
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 
@@ -549,7 +614,7 @@ $(document).on("click", ".change-status-btn", function () {
 
 $(document).on("click", ".view-details-btn", function () {
     let reqId = $(this).data("id");
-    alert("View details clicked for Request ID: " + reqId);
+    // alert("View details clicked for Request ID: " + reqId);
     // TODO: open modal or fetch details from backend
 
     let requestId = $(this).data("request-id");
@@ -596,15 +661,6 @@ $(document).on("click", ".view-details-btn", function () {
 
       }
     });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -917,7 +973,7 @@ function loadSponsorData(token) {
 
 
             
-        resp.data.forEach(function (card) {
+            resp.data.forEach(function (card) {
 
 
         
@@ -1101,7 +1157,7 @@ const paymentMessage = document.getElementById("payment-message");
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  // (a) Call your backend via AJAX to create a PaymentIntent
+  // (a) Call the backend via AJAX to create a PaymentIntent
   const response = await fetch("http://localhost:8080/api/v1/payment/create-intent", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
