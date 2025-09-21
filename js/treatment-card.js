@@ -148,6 +148,11 @@ $(document).ready(function () {
       console.error('Error fetching cards:', err);
     }
   });
+
+
+
+
+  
 });
 
 

@@ -244,7 +244,7 @@ loginBtn.on('click', function(e) {
 
 
             console.log("✅ Success:", response);
-            alert("Login worked!");
+            // alert("Login worked!");
 
             // alert(JSON.stringify(response));
 
@@ -270,10 +270,16 @@ loginBtn.on('click', function(e) {
             console.log("Decoded payload:", payloadJson);
             console.log("User role:", payloadJson.role);  // 👉 gives you "PET_OWNER"
             console.log("Username:", payloadJson.sub);    // 👉 gives you "smith"
+
+
+            /*
             alert(payloadBase64);
             alert(payloadDecoded);
             alert(payloadJson.role);
             alert(payloadJson.email);
+            */
+
+
 
             let role = payloadJson.role;
 
@@ -394,11 +400,11 @@ function loadPetOwnerData(token) {
             // console.log(jason.stringify(data))
 
 
-            console.log("SuccessFull !!!");
+            // console.log("SuccessFull !!!");
 
-            alert(JSON.stringify(data, 2, null));
+            // alert(JSON.stringify(data, 2, null));
 
-            console.log(JSON.stringify(data, 2, null))
+            // console.log(JSON.stringify(data, 2, null))
 
 
 
@@ -512,6 +518,10 @@ function loadPetOwnerData(token) {
 
         // Listen for clicks on any .request-btn
         $(document).on("click", ".request-btn", function () {
+
+
+
+            // Display - Block or None section
 
             $('#treatmentRequestSection').removeClass('d-none').addClass('d-block');
             $('#petOwnerPets').addClass('d-none');
@@ -760,6 +770,10 @@ function loadSponsorData(token) {
             console.error("Sponsor data fetch failed:", err);
         }
     });
+
+
+
+
 }
 
 

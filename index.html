@@ -476,6 +476,11 @@
 
 
 
+
+
+
+
+
             <!-- Action Buttons -->
             <div class="row mb-5 mt-4">
 
@@ -483,14 +488,23 @@
                 <div class="col-12 d-flex justify-content-center">
 
 
-                    <button class="btn btn-primary me-3" onclick="showPetRegistration()">
+                    <button type="button" id="home-pet-owner" class="btn btn-success me-3">
+                        <i class="fa fa-home me-2"></i>Home
+                    </button>
+
+
+                    <!-- onclick="showPetRegistration() -->
+
+                    <button type="button" id="pet-register" class="btn btn-primary me-3" ">
                         <i class="fas fa-plus-circle me-2"></i>Register New Pet
                     </button>
 
 
-                    <button id="treatmentReq" class="btn btn-success">
+
+                    <button type="button" id="browseTreatmentReqs" class="btn btn-success">
                         <i class="fas fa-heart me-2"></i>Treatment Requests
                     </button>
+
 
 
                 </div>
@@ -499,7 +513,23 @@
 
             </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <!-- Pet Registration Form (Hidden by default) -->
+
             <div id="petRegistrationSection" class="row mb-5" style="display: none;">
                 <div class="col-12">
                     <div class="card shadow-sm">
@@ -587,7 +617,21 @@
                 </div>
             </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
             <!-- Treatment Request Form (Hidden by default) -->
+
+        
             <div id="treatmentRequestSection" class="row mb-5 d-none" >
                 <div class="col-12">
                     <div class="card shadow-sm">
@@ -600,17 +644,6 @@
 
                                 <div class="row">
 
-<!-- 
-
-                                    <div class="col-12 mb-3">
-                                        <label for="selectPet" class="form-label">Select Your Pet *</label>
-                                        <select class="form-select" id="selectPet" required>
-                                            <option value="">Choose your pet</option>
-                                        </select>
-                                    </div>
-
-                                 
- -->
 
 
                                     <div class="col-12 mb-3">
@@ -637,45 +670,6 @@
 
 
 
-<!--                                     
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="urgency" class="form-label">Urgency Level *</label>
-                                        <select class="form-select" id="urgency" required>
-                                            <option value="">Select urgency</option>
-                                            <option value="critical">Critical - Immediate care needed</option>
-                                            <option value="urgent">Urgent - Within 1-2 weeks</option>
-                                            <option value="moderate">Moderate - Within 1 month</option>
-                                            <option value="routine">Routine - Ongoing care</option>
-                                        </select>
-                                    </div> -->
-
-
-
-
-<!-- 
-                                    
-                                    <div class="col-12 mb-3">
-                                        <label for="medicalDocuments" class="form-label">Medical Documents</label>
-                                        <input type="file" class="form-control" id="medicalDocuments" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-                                        <div class="form-text">Upload vet reports, X-rays, test results (PDF, DOC, images)</div>
-                                    </div>
-
-
-
-
-
-
-                                    <div class="col-12 mb-3">
-                                        <label for="petPhotos" class="form-label">Pet Photos</label>
-                                        <input type="file" class="form-control" id="petPhotos" multiple accept="image/*">
-                                        <div class="form-text">Recent photos of your pet (optional but recommended)</div>
-                                    </div>
- -->
-
-
-
-
 
                                 </div>
 
@@ -692,6 +686,19 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <!-- Registered Pets Section -->
             <div id="petOwnerPets" class="row mb-5">
@@ -720,15 +727,77 @@
 
             </div>
 
+
+            
+
+
+
+
+
+
+
+
             <!-- Treatment Requests Section -->
-            <div id="PetOwnerTreatmentRequests" class="row">
+
+
+
+            <div id="PetOwnerTreatmentRequests" class="row d-none">
+
                 <div class="col-12">
                     <h3 class="fw-bold text-primary mb-3">Your Treatment Requests</h3>
                     <div id="treatmentRequests" class="row">
                         <!-- Treatment requests will be dynamically added here -->
                     </div>
                 </div>
+
+
+                
             </div>
+
+
+
+            <div id="healthRecords" class="row" style="display: none;">
+
+
+                
+
+                <div class="card shadow-sm " style="width: 22rem;">
+                    <!-- Card Header -->
+
+    <!-- 
+                    <div class="card-header bg-primary text-white fw-bold">
+                        Health Record Upload
+                    </div>
+
+                    -->
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <label for="healthRecordUpload" class="form-label"><div class="badge text-bg-light text-wrap">Upload Health Records</div></label>
+                        <input class="form-control mt-2 mb-2" type="file" id="healthRecordUpload" multiple accept="image/*>
+                        <span class="fs-6 text-muted mb-2">Slect image/images record</span>
+                    </div>
+                    
+
+                    <!-- Card Footer -->
+                    <div class="card-footer text-end">
+                        <button type="button" id="helthRecUploadCancelBtn" class="btn btn-secondary">Cancel</button>
+                        <button type="button" id="helathRecUploadBtn" class="btn btn-success">Upload</button>
+                        
+                    </div>
+
+                </div>
+
+
+
+            
+
+
+            </div>
+
+
+
+
         </div>
     </div>
 

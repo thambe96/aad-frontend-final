@@ -377,7 +377,7 @@ $('#treamentReqSubmitBtn').on('click', function() {
 
 
 
-        
+
 
         // req section closed - registered pets and requests visible
 
@@ -849,3 +849,419 @@ function logout() {
     window.location.href = "auth-pages.html"
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Browse Treatement Requests button on click
+
+
+$('#browseTreatmentReqs').on('click', function() {
+
+    $('#PetOwnerTreatmentRequests').removeClass('d-none').addClass('d-block');
+    $('#petOwnerPets').removeClass('d-block').addClass('d-none');
+    $('#petRegistrationSection').removeClass('d-block').addClass('d-none');
+
+    $('#healthRecords').css("display", "none");
+
+
+
+});
+
+
+// Home button 
+
+
+$('#home-pet-owner').on('click', function() {
+
+    $('#petOwnerPets').removeClass('d-none').addClass('d-bock');
+    $('#PetOwnerTreatmentRequests').removeClass('d-block').addClass('d-none');
+    $('#petRegistrationSection').removeClass('d-block').addClass('d-none');
+
+    $('#healthRecords').css("display", "none");
+
+
+});
+
+
+$('#browseTreatmentReqs').on('click', function() {
+
+    // $('#petRegistrationSection').removeClass().addClass('d-block');
+
+    // $('#petOwnerPets').removeClass('d-none').addClass('d-bock');
+    // $('#PetOwnerTreatmentRequests').removeClass('d-block').addClass('d-none');
+
+
+
+
+
+      // load requests 
+
+     $('#treatmentRequests').empty();
+    
+
+    let token = localStorage.getItem('jwtToken');
+
+    let userId = localStorage.getItem('userId');
+
+
+    
+    $.ajax({
+        url: `http://localhost:8080/api/v1/treatmentReqController/requestsByUserId/${userId}`,
+        method: 'GET',
+        headers: { "Authorization": "Bearer " + token },
+        dataType: 'json',
+        success: function (obj) {
+
+
+        // Assuming data is an array of card objects
+
+        // alert("Successfull !!");
+        // alert(JSON.stringify(obj, 2, null));
+
+        obj.data.forEach(function (card) {
+            // Create card HTML string
+            const cardHtml = `
+
+                    
+                    <div  class="col-md-6 col-lg-4 m-5">
+                    <!-- Treatment Request Card -->
+                    <div class="card treatment-card shadow-sm h-100" data-request-id="1">
+                        <div class="card-header bg-white border-0 pb-2">
+                            <div class="d-flex align-items-start gap-3">
+                                <!-- Pet Image -->
+                                <div class="pet-image-container flex-shrink-0">
+                                    <img src="${card.petImageUrl}" 
+                                        alt="Pet Photo" 
+                                        class="pet-image rounded-circle" 
+                                        id="petImage">
+                                </div>
+                                
+                                <!-- Pet Info -->
+                                <div class="flex-grow-1 min-w-0">
+                                    <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                        <h5 class="card-title mb-0 lh-sm" id="requestTitle">${card.requestName}</h5>
+                                        <span class="badge urgency-badge critical flex-shrink-0" id="urgencyBadge">
+                                            <i class="bi bi-exclamation-triangle me-1"></i>
+                                            Critical
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="d-flex align-items-center gap-3 small text-muted mb-2">
+                                        <span class="fw-medium" id="petInfo">${card.petName}</span>
+                                        <span class="badge bg-light text-dark border" id="requestStatus">${card.requestStatus}</span>
+                                        <span class="badge bg-light text-dark border" id="requestStatus">pet dog ref: ${card.dogId}</span>
+                                        <span class="badge bg-light text-dark border" id="requestStatus">req ref: ${card.requestId}</span>
+                                    </div>
+                                    
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="card-body pt-0">
+                            <!-- Story Preview -->
+                            <p class="card-text small text-muted mb-3" id="storyPreview">
+                                ${card.treatmentDescription}
+                            </p>
+
+                            <!-- Progress Section -->
+                            <div class="funding-progress mb-3">
+                                <div class="d-flex justify-content-between align-items-center small mb-2">
+                                    <span class="fw-medium">Funding Progress</span>
+                                    <span class="text-muted" id="progressPercentage">${(card.collectedAmount / card.treatmentPrice) * 100}% funded</span>
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div class="progress mb-2" style="height: 8px;">
+                                    <div class="progress-bar bg-primary" 
+                                        role="progressbar" 
+                                        style="width: ${(card.collectedAmount / card.treatmentPrice) * 100}%" 
+                                        id="progressBar"
+                                        aria-valuenow="${(card.collectedAmount / card.treatmentPrice) * 100}" 
+                                        aria-valuemin="0" 
+                                        aria-valuemax="100">
+                                    </div>
+                                </div>
+
+                                <!-- Funding Details -->
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="d-flex align-items-center gap-1 small">
+                                        <i class="bi bi-currency-dollar text-primary"></i>
+                                        <span class="fw-semibold text-primary" id="raisedAmount">${card.collectedAmount}</span>
+                                        <span class="text-muted">raised</span>
+                                    </div>
+                                    <div class="small text-muted">
+                                        <span class="fw-medium" id="remainingAmount">${card.treatmentPrice - card.collectedAmount} remaining
+                                    </div>
+                                </div>
+
+                                <div class="text-center small text-muted">
+                                    Goal: <span id="goalAmount">${card.treatmentPrice}</span>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <!-- Action Buttons -->
+
+
+                            <div class="d-flex gap-2">
+
+
+                                
+                                <button type="button" class="btn btn-primary healthRecUploadBtn btn-sm flex-fill"
+                                    data-reqid = "${card.requestId}"
+                                >
+                                    Upload Health Records
+                                </button>
+                                
+
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            `;
+            
+            
+
+            // Append card to container
+            $('#treatmentRequests').append(cardHtml);
+
+        });
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        },
+        error: function (err) {
+
+        alert("Faild !!");
+
+        console.error('Error fetching cards:', err);
+        }
+    });
+
+
+
+
+
+
+
+
+});
+
+
+
+
+$('#pet-register').on('click', function() {
+
+    // $('#PetOwnerTreatmentRequests').addClass('d-block');
+
+
+    // Resets values of the fields
+
+
+
+    $('#petOwnerPets').removeClass('d-block').addClass('d-none');
+    $('#petRegistrationSection').removeClass('d-none').addClass('d-block');
+    $('#PetOwnerTreatmentRequests').removeClass('d-block').addClass('d-none');
+    $('#healthRecords').css("display", "none");
+    // $('#PetOwnerTreatmentRequests').removeClass('d-block').addClass('d-none');
+
+
+
+});
+
+
+
+
+function uploadHealthRecords() {
+
+
+// code goes here -->>   
+
+
+}
+
+
+
+function setUpHealthRecord() {
+
+
+
+
+
+
+
+
+}
+
+
+
+let reqId;
+$(document).on("click", ".healthRecUploadBtn", function () {
+
+
+        $('#PetOwnerTreatmentRequests').removeClass('d-block').addClass('d-none');
+        $('#healthRecords').css("display", "block");
+
+        // alert( $(this).data("reqid"));
+        reqId = $(this).data("reqid");
+        
+
+        
+});
+
+
+
+
+
+
+$('#helathRecUploadBtn').on('click', function() {
+
+       
+    // let reqId = $(this).data("reqid"); // replace with dynamic reqId (from data-reqid or hidden field)
+    // alert("This is req Id :: "+reqId)
+    let files = $("#healthRecordUpload")[0].files;
+
+    if (files.length === 0) {
+        alert("Please select at least one file");
+        return;
+    }
+
+    let formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+        formData.append("healthRecords", files[i]); // param name must match @RequestParam
+    }
+
+    // /api/v1/debug/testAuth
+    // http://localhost:8080/api/v1/healthRecord/saveHealthRecords/${reqId}
+
+    $.ajax({
+        url: `http://localhost:8080/api/v1/healthRecord/saveHealthRecords/${reqId}`,
+        type: "POST",
+        headers: { "Authorization": "Bearer " + localStorage.getItem('jwtToken') },
+        data: formData,
+        processData: false,  // required for FormData
+        contentType: false,  // required for FormData
+        success: function (response) {
+
+
+            alert("Health records uploaded successfully!");
+            console.log(response);
+
+            
+
+
+        },
+        error: function (err) {
+            console.error("Upload failed:", err);
+            alert("Upload failed!");
+        }
+    });
+
+
+
+
+
+});
+
+
+
+
+
+
+
+$('#helthRecUploadCancelBtn').on('click', function() {
+
+    $('#healthRecords').css("display", "none");
+    $('#petOwnerPets').removeClass('d-none').addClass('d-block');
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
