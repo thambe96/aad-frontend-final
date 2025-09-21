@@ -425,6 +425,7 @@ function loadAdminData(token) {
 
 
             
+            /*
             console.log('++++++++++++++++++++++++++++++++++++++');
 
             data.forEach(obj => {
@@ -449,7 +450,7 @@ function loadAdminData(token) {
             console.log('++++++++++++++++++++++++++++++++++++++');
 
             
-
+            */
 
             
 
@@ -506,7 +507,13 @@ function populateRequestsTable(data) {
                     </button>
                 </td>
                 <td>
-                    <button class="btn btn-info btn-sm view-details-btn" data-id="${req.requestId}">
+                    <button class="btn btn-info btn-sm view-details-btn" data-id="${req.requestId}"
+                      
+                        class="btn btn-info btn-sm viewDetailsBtn" 
+                        data-request-id="1" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#detailsModal">
+
                         View Details
                     </button>
                 </td>
@@ -537,10 +544,83 @@ $(document).on("click", ".change-status-btn", function () {
     // TODO: call backend to update status
 });
 
+
+
+
 $(document).on("click", ".view-details-btn", function () {
     let reqId = $(this).data("id");
     alert("View details clicked for Request ID: " + reqId);
     // TODO: open modal or fetch details from backend
+
+    let requestId = $(this).data("request-id");
+    let imageContainer = $("#imageContainer");
+    imageContainer.empty(); // clear previous images
+
+    // Fetch images from backend
+    $.ajax({
+      url: `http://localhost:8080/api/v1/healthRecord/getHealthRecorImages/${reqId}`, // Adjust your API
+      type: "GET",
+      headers: { "Authorization": "Bearer " + localStorage.getItem("jwtToken") }, // if JWT needed
+      success: function (response) {
+        // response.data should be an array of image URLs
+
+        alert("SuccessFull!!");
+
+        console.log(JSON.stringify(response, null, 2));
+
+
+        
+        response.data.forEach(obj => {
+          let card = `
+            <div class="col-4">
+              <div class="card">
+                <img src="${obj.healthRecordImgUrl}" class="card-img-top fixed-img" alt="Pet Image">
+              </div>
+            </div>`;
+          imageContainer.append(card);
+        });
+
+        
+
+
+
+      },
+      error: function () {
+
+        alert("Faild!!")
+
+        /*
+        imageContainer.append(`<p class="text-danger">Failed to load images</p>`);
+        */
+
+
+      }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 
