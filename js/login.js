@@ -301,8 +301,41 @@ loginBtn.on('click', function(e) {
 
             // load section based on role
             if (role === "ADMIN") {
-                $("#section-admin").show();
+
+
+                // $("#section-admin").show();
+
+
+
+                $('#userName-admin').text(payloadJson.sub);
+                $('#userEmail-admin').text(payloadJson.email);
+                $('#userRole-admin').text(payloadJson.role);
+
+                if(usrImgUrl) {
+                    $('#userImageUrl-admin').attr('src', usrImgUrl);
+                }
+
+
+
+
+
+                $('#main-container-admin').removeClass('d-none').addClass('d-block');
+                $('#login').addClass('d-none');
+
                 loadAdminData(token);
+
+
+
+
+
+
+
+
+
+                // loadAdminData(token);
+
+
+
             } else if (role === "PET_OWNER") {
 
 
@@ -360,19 +393,191 @@ loginBtn.on('click', function(e) {
 
 // ------------------ LOAD DATA FUNCTIONS ------------------
 
+
+
+
+
+
 function loadAdminData(token) {
+
+
+
     $.ajax({
-        url: "http://localhost:8080/api/v1/admin/dashboard",
+
+
+        url: "http://localhost:8080/api/v1/treatmentReqController/getAllRequests",
         type: "GET",
         headers: { "Authorization": "Bearer " + token },
-        success: function(data) {
-            // $("#admin-data").html("<pre>" + JSON.stringify(data, null, 2) + "</pre>");
+        success: function(response) {
+            
+            alert("success !!");
+
+            console.log(response.data);
+           
+            let data = response.data;
+
+            // response.data
+
+            populateRequestsTable(data);
+
+            // console.log(JSON.stringify(response, null, 2));
+            // alert(JSON.stringify(response, null, 2));
+
+
+            
+            console.log('++++++++++++++++++++++++++++++++++++++');
+
+            data.forEach(obj => {
+
+                console.log(obj.requestId);
+                console.log(obj.requestStatus);
+                console.log(obj.collectedAmount);
+                console.log(obj.treatmentDescription);
+                console.log(obj.treatmentPrice);
+                console.log(obj.dogId);
+                console.log(obj.requestName);
+                console.log(obj.petImageUrl);
+                console.log(obj.petName);
+
+
+
+
+            });
+
+           
+
+            console.log('++++++++++++++++++++++++++++++++++++++');
+
+            
+
+
+            
+
+
+
         },
         error: function(err) {
+
+            alert("Faild !!");
             console.error("Admin data fetch failed:", err);
         }
+
+
+
+    });
+
+
+
+
+
+}
+
+
+ // <td>${req.petDog.dogId}</td>
+
+function populateRequestsTable(data) {
+    let tableBody = $("#req-tbody-admin");
+    tableBody.empty(); // clear old rows
+
+    data.forEach((req) => {
+
+        let badgeClass = (req.requestStatus === "OPEN") 
+        ? "text-bg-primary" 
+        : (req.requestStatus === "CLOSED") 
+            ? "text-bg-danger" 
+            : "text-bg-secondary"; // fallback
+
+
+
+        let row = `
+            <tr>
+                <td>${req.requestId}</td>
+                <td>
+                    <span class="badge ${badgeClass}">${req.requestStatus}</span>
+                </td>
+                <td>${req.collectedAmount}</td>
+                <td>${req.treatmentDescription}</td>
+                <td>${req.treatmentPrice}</td>
+                <td>${req.dogId}</td>
+                <td>${req.requestName}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm change-status-btn" data-id="${req.requestId}">
+                        Change Status
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-info btn-sm view-details-btn" data-id="${req.requestId}">
+                        View Details
+                    </button>
+                </td>
+
+                <td>
+                    <img src="${req.petImageUrl}" 
+                            alt="${req.petName}" 
+                            class="img-thumbnail" 
+                            style="width: 60px; height: 60px; object-fit: cover;">
+                </td>
+
+
+
+
+            </tr>
+        `;
+        tableBody.append(row);
     });
 }
+
+
+
+
+
+$(document).on("click", ".change-status-btn", function () {
+    let reqId = $(this).data("id");
+    alert("Change status clicked for Request ID: " + reqId);
+    // TODO: call backend to update status
+});
+
+$(document).on("click", ".view-details-btn", function () {
+    let reqId = $(this).data("id");
+    alert("View details clicked for Request ID: " + reqId);
+    // TODO: open modal or fetch details from backend
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -775,6 +980,9 @@ function loadSponsorData(token) {
 
 
 }
+
+
+
 
 
 

@@ -390,7 +390,7 @@
 
 
             
-            <section id="header" class="row">
+            <section id="header-pet-owner" class="row">
 
                     <header class="header-container d-flex justify-content-between align-items-center">
                         <!-- Left corner -->
@@ -818,6 +818,182 @@
 
 
 
+
+
+
+
+
+
+
+
+    <!-- ADMIN CONTAINER -->
+
+
+
+    <div id="main-container-admin" class="container d-none">
+
+        <section id="header-admin" class="row">
+
+                <header class="header-container d-flex justify-content-between align-items-center">
+                    <!-- Left corner -->
+                    <div class="site-name fs-4 fw-bold">
+                        PetCare Fund
+                    </div>
+                    <!-- Right corner -->
+                    <div class="d-flex align-items-center">
+
+                        <div class="me-5">
+                            <span id="userRole-admin" class="badge bg-primary ms-2">ADMIN</span>
+                        </div>
+
+
+                        <div class="me-3 d-flex justify-content-between align-items-center">
+
+                            <div>
+                                <img src="https://res.cloudinary.com/dk0c1qe0x/image/upload/v1757702884/zvmqzxwbf3urtbuph4ne.jpg" alt="Profile Picture" id="userImageUrl-admin" class="profile-pic" />
+                            </div>
+                            
+                            <div class="d-flex flex-column " id="userInfoContainer-admin" >
+                                <div id="userName-admin" class="fw-normal">John Doe</div>
+                                <div id="userEmail-admin" class="fw-lighter small text-muted">john@gmail.com</div>
+                            </div>
+                        
+                    </div>
+
+                </header>
+
+
+        </section>
+
+
+
+
+        <section id="profile-edit-container-admin">
+
+            <div class="row d-flex justify-content-end">
+                                    <!-- Dropdown menu (initially hidden) -->
+                <div id="userOptions" class="col-2 d-flex-row" style="display: none;">
+                    <div id="editProfileBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Edit Profile</div>
+                    <div id="logoutBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Log out</div>
+                    <div id="editProfilePicBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Profile Picture</div>
+
+                </div>
+            </div>
+
+            <div class="row">
+
+
+                <div id="profileEditSection-admin" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 4px;">
+                    <h5 class="form-text text-center fs-3">Edit Profile</h4>
+                    <form id="profileForm-admin">
+
+                        <div class="m-3">
+                            <label for="edit-name-admin" class="form-label">Name:</label><br>
+                            <input type="text" id="edit-name-admin" name="editName" value="John Doe" class="form-control" />
+                        </div>
+
+                        <div class="m-3">
+                            <label for="edit-email-admin" class="form-label">Email</label><br>
+                            <input type="email" id="edit-email-admin" name="editEmail" value="john@gmail.com" class="form-control"" />
+                        </div>
+
+
+                        <button type="button" class="btn btn-success m-3">Save</button>
+                        <button type="button" id="cancel-edit-admin" class="btn btn-light m-3">Cancel</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+            <div id="profilePictureChange-admin" class="row" style="display: none;">
+
+        
+                <div class="col-12 m-3">
+                    <label for="userImageEdit" class="form-label">Upload User Image: </label>
+                    <input type="file" class="form-control" id="user-image-edit-admin" accept="image/*">
+                    <div class="form-text mt-1">Upload Your Clear Image</div>
+                    <button type="button" id="upload-profile-pic" class="btn btn-success m-3">Upload</button>
+                    <button type="button" id="cancel-upload" class="btn btn-light m-3">Cancel</button>
+                </div>
+
+
+
+            </div>
+
+        </section>
+
+
+        <section id="request-section-admin" class="row">
+
+
+            <table  id="request-admin" class="table mt-4">
+
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">status</th>
+                        <th scope="col">clltd-amt</th>
+                        <th scope="col">desc</th>
+                        <th scope="col">trtmnt-cost</th>
+                        <th scope="col">dog-id</th>
+                        <th scope="col">req-name</th>
+                        <th scope="col">status-chng</th>
+                        <th scope="col">viw-dtls</th>
+                        <th scope="col">image</th>
+                    </tr>
+                </thead>
+
+                <tbody id="req-tbody-admin"></table>
+
+        
+
+
+
+            </table>
+
+
+
+
+
+
+
+
+
+
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/lib/jQuery/jquery-3.7.1.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
@@ -826,6 +1002,7 @@
 <script src="js/login.js"></script>
 <script src="js/pet-owner-script.js"></script>
 <script src="js/profile-eidt-script.js"></script>
+<script src="js/admin.js"></script>
 
 </body>
 </html>
