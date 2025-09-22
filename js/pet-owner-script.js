@@ -360,7 +360,7 @@ $('#treamentReqSubmitBtn').on('click', function() {
         treatmentName: treatmentName,
         treatmentDescription: treatmentDescription,
         treatmentPrice: treatmentPrice,
-        requestStatus: "OPEN",
+        requestStatus: "CLOSED", //"OPEN"
         dogId: dogId,
         dogName: dogName,
         dogBreed: dogBreed,
@@ -471,15 +471,9 @@ function handlePetRegistration(e) {
 
 
 
-$('#registerPetBtn').on('click', function(e) {
 
 
-    e.preventDefault();
-    createPetDog();
-    // debutController();
 
-
-})
 
 
 
@@ -529,67 +523,26 @@ function debutController() {
 
 
 
-function createPetDog() {
-    // Get token from localStorage (assuming you stored it after login)
-
-
-    let token = localStorage.getItem("jwtToken");
-    let userId = localStorage.getItem("userId");
-
-    // Create FormData object
-    let formData = new FormData();
-
-    // Get file from your input field
-    let imageFile = $("#petPhoto")[0].files[0];
-    formData.append("images", imageFile);
 
 
 
-    // dogName":"Luna", "dogBreed":"SL hound", "dogAge":2, "owner": {"id":4, "name": "Anthony", "age": 25, 
-    // "gender": "Male", "email": "antony@gmail.com", "role": "PET_OWNER"}
 
 
 
-    // $('#userRolePetOwner').val()
 
-    // JSON details
-    let details = {
-        dogName: $('#petName').val(),
-        dogBreed:$('#petBreed').val(),
-        dogAge: $('#petAge').val(),
-        owner: {
-            id: userId,
-            name: $('#userNamePetOwner').val(),
-            age: 25,
-            gender: "Male",
-            email: $('#userEmailpetOwner').val(),
-            role: "PET_OWNER"
-        }
-    };
 
-    // Append JSON as a Blob with application/json type
-    formData.append("details", JSON.stringify(details));
 
-    // AJAX call
-    $.ajax({
-        url: "http://localhost:8080/api/v1/petDog/createPetDogTest",
-        type: "POST",
-        data: formData,
-        processData: false,   // prevent query string conversion
-        contentType: false,   // let browser set proper multipart/form-data boundary
-        headers: {
-            "Authorization": "Bearer " + token
-        },
-        success: function (response) {
-            console.log("✅ Pet dog created:", response);
-            alert("Pet dog created successfully!");
-        },
-        error: function (err) {
-            console.error("❌ Error creating pet dog:", err);
-            alert("Failed to create pet dog!");
-        }
-    });
-}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -933,6 +886,10 @@ $('#browseTreatmentReqs').on('click', function() {
 
         // alert("Successfull !!");
         // alert(JSON.stringify(obj, 2, null));
+
+
+        // Make the this empty before fetching data
+        $('#treatmentRequests').empty();
 
         obj.data.forEach(function (card) {
             // Create card HTML string

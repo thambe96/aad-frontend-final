@@ -337,6 +337,48 @@
                 </div>
             </div>
 
+
+
+            <!-- For view details section in the sponsor -->
+
+
+                 <!-- Bootstrap Modal -->
+            <div class="modal fade" id="detailsModal-sponsor" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content shadow-lg">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Pet Health Records</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="imageContainer-sponsor" class="row g-3">
+                    <!-- Images will be injected here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </section>
 
     </div>
@@ -412,7 +454,7 @@
                                     <img src="https://res.cloudinary.com/dk0c1qe0x/image/upload/v1757702884/zvmqzxwbf3urtbuph4ne.jpg" alt="Profile Picture" id="userImageUrlPetOwner" class="profile-pic" />
                                 </div>
                                 
-                                <div class="d-flex flex-column ">
+                                <div class="d-flex flex-column" id="userInfoContainer-owner">
                                     <div id="userNamePetOwner" class="fw-normal">John Doe</div>
                                     <div id="userEmailpetOwner" class="fw-lighter small text-muted">john@gmail.com</div>
                                 </div>
@@ -426,6 +468,76 @@
 
 
             </section>
+
+
+
+
+
+
+            <!-- profile edit section -->
+
+
+
+
+
+            <section id="profile-edit-container-owner">
+
+                <div class="row d-flex justify-content-end">
+                                        <!-- Dropdown menu (initially hidden) -->
+                    <div id="userOptions-owner" class="col-2 d-flex-row" style="display: none;">
+                        <div id="editProfileBtn-owner" style="padding: 5px; cursor: pointer; text-align: center;">Edit Profile</div>
+                        <div id="logoutBtn-owner" style="padding: 5px; cursor: pointer; text-align: center;">Log out</div>
+                        <div id="editProfilePicBtn-owner" style="padding: 5px; cursor: pointer; text-align: center;">Profile Picture</div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+
+                    <div id="profileEditSection-owner" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 4px;">
+                        <h5 class="form-text text-center fs-3">Edit Profile</h4>
+                        <form id="profileForm-owner">
+
+                            <div class="m-3">
+                                <label for="editName" class="form-label">Name:</label><br>
+                                <input type="text" id="editName-owner" name="editName" value="John Doe" class="form-control" />
+                            </div>
+
+                            <div class="m-3">
+                                <label for="editEmail-owner" class="form-label">Email</label><br>
+                                <input type="email" id="editEmail-owner" name="editEmail" value="john@gmail.com" class="form-control"" />
+                            </div>
+
+
+                            <button type="button" class="btn btn-success m-3">Save</button>
+                            <button type="button" id="cancelEdit-owner" class="btn btn-light m-3">Cancel</button>
+                        </form>
+                    </div>
+
+
+                </div>
+
+
+                <div id="profilePictureChange-owner" class="row" style="display: none;">
+
+            
+                    <div class="col-12 m-3">
+                        <label for="userImageEdit" class="form-label">Upload User Image: </label>
+                        <input type="file" class="form-control" id="userImageEdit-owner" accept="image/*">
+                        <div class="form-text mt-1">Upload Your Clear Image</div>
+                        <button type="button" id="uploadProfilePic-owner" class="btn btn-success m-3">Upload</button>
+                        <button type="button" id="cancelUpload-owner" class="btn btn-light m-3">Cancel</button>
+                    </div>
+
+
+
+                </div>
+
+
+            </section>
+
+
 
 
 
@@ -869,61 +981,73 @@
 
 
 
-        <section id="profile-edit-container-admin">
-
-            <div class="row d-flex justify-content-end">
-                                    <!-- Dropdown menu (initially hidden) -->
-                <div id="userOptions" class="col-2 d-flex-row" style="display: none;">
-                    <div id="editProfileBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Edit Profile</div>
-                    <div id="logoutBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Log out</div>
-                    <div id="editProfilePicBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Profile Picture</div>
-
-                </div>
-            </div>
-
-            <div class="row">
-
-
-                <div id="profileEditSection-admin" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 4px;">
-                    <h5 class="form-text text-center fs-3">Edit Profile</h4>
-                    <form id="profileForm-admin">
-
-                        <div class="m-3">
-                            <label for="edit-name-admin" class="form-label">Name:</label><br>
-                            <input type="text" id="edit-name-admin" name="editName" value="John Doe" class="form-control" />
-                        </div>
-
-                        <div class="m-3">
-                            <label for="edit-email-admin" class="form-label">Email</label><br>
-                            <input type="email" id="edit-email-admin" name="editEmail" value="john@gmail.com" class="form-control"" />
-                        </div>
-
-
-                        <button type="button" class="btn btn-success m-3">Save</button>
-                        <button type="button" id="cancel-edit-admin" class="btn btn-light m-3">Cancel</button>
-                    </form>
-                </div>
-
-
-            </div>
-
-
-            <div id="profilePictureChange-admin" class="row" style="display: none;">
 
         
-                <div class="col-12 m-3">
-                    <label for="userImageEdit" class="form-label">Upload User Image: </label>
-                    <input type="file" class="form-control" id="user-image-edit-admin" accept="image/*">
-                    <div class="form-text mt-1">Upload Your Clear Image</div>
-                    <button type="button" id="upload-profile-pic" class="btn btn-success m-3">Upload</button>
-                    <button type="button" id="cancel-upload" class="btn btn-light m-3">Cancel</button>
+
+
+            <section id="profile-edit-container-admin">
+
+                <div class="row d-flex justify-content-end">
+                                        <!-- Dropdown menu (initially hidden) -->
+                    <div id="userOptions-admin" class="col-2 d-flex-row" style="display: none;">
+                        <div id="editProfileBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Edit Profile</div>
+                        <div id="logoutBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Log out</div>
+                        <div id="editProfilePicBtn-admin" style="padding: 5px; cursor: pointer; text-align: center;">Profile Picture</div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+
+                    <div id="profileEditSection-admin" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 4px;">
+                        <h5 class="form-text text-center fs-3">Edit Profile</h4>
+                        <form id="profileForm-admin">
+
+                            <div class="m-3">
+                                <label for="editName" class="form-label">Name:</label><br>
+                                <input type="text" id="editName-admin" name="editName" value="John Doe" class="form-control" />
+                            </div>
+
+                            <div class="m-3">
+                                <label for="editEmail-admin" class="form-label">Email</label><br>
+                                <input type="email" id="editEmail-admin" name="editEmail" value="john@gmail.com" class="form-control"" />
+                            </div>
+
+
+                            <button type="button" id="save-change-admin" class="btn btn-success m-3">Save</button>
+                            <button type="button" id="cancelEdit-admin" class="btn btn-light m-3">Cancel</button>
+                        </form>
+                    </div>
+
+
                 </div>
 
 
+                <div id="profilePictureChange-admin" class="row" style="display: none;">
 
-            </div>
+            
+                    <div class="col-12 m-3">
+                        <label for="userImageEdit" class="form-label">Upload User Image: </label>
+                        <input type="file" class="form-control" id="userImageEdit-admin" accept="image/*">
+                        <div class="form-text mt-1">Upload Your Clear Image</div>
+                        <button type="button" id="uploadProfilePic-admin" class="btn btn-success m-3">Upload</button>
+                        <button type="button" id="cancelUpload-admin" class="btn btn-light m-3">Cancel</button>
+                    </div>
 
-        </section>
+
+
+                </div>
+
+
+            </section>
+
+
+
+
+
+
+
 
 
         <section id="request-section-admin" class="row">
@@ -935,13 +1059,13 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">status</th>
-                        <th scope="col">clltd-amt</th>
+                        <th scope="col">collected-amount</th>
                         <th scope="col">desc</th>
-                        <th scope="col">trtmnt-cost</th>
+                        <th scope="col">treatment-cost</th>
                         <th scope="col">dog-id</th>
                         <th scope="col">req-name</th>
                         <th scope="col">status-chng</th>
-                        <th scope="col">viw-dtls</th>
+                        <th scope="col">view-details</th>
                         <th scope="col">image</th>
                     </tr>
                 </thead>

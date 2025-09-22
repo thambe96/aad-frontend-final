@@ -289,6 +289,7 @@ loginBtn.on('click', function(e) {
 
             let userId = payloadJson.id;
 
+
             localStorage.setItem('userId', userId);
 
          
@@ -405,7 +406,7 @@ function loadAdminData(token) {
     $.ajax({
 
 
-        url: "http://localhost:8080/api/v1/treatmentReqController/getAllRequests",
+        url: "http://localhost:8080/api/v1/treatmentReqController/getAllRequestsForAdmin",
         type: "GET",
         headers: { "Authorization": "Bearer " + token },
         success: function(response) {
@@ -663,20 +664,6 @@ $(document).on("click", ".view-details-btn", function () {
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 
@@ -721,6 +708,9 @@ $(document).on("click", ".view-details-btn", function () {
 
 
 function loadPetOwnerData(token) {
+
+
+    $('#registeredPets').empty();
 
     $('#login').addClass('d-none');
 
@@ -946,6 +936,9 @@ function loadSponsorData(token) {
 
     // alert("LoadSponsorData >>>");
 
+
+    $('#card-container').empty();
+
     $.ajax({
         url: "http://localhost:8080/api/v1/treatmentReqController/getAllRequests",
         type: "GET",
@@ -979,6 +972,8 @@ function loadSponsorData(token) {
         
 
             // let cardHtml = `<h2>${card.requestName}</h2>`;
+
+            
 
 
             
@@ -1084,10 +1079,21 @@ function loadSponsorData(token) {
 
                           <!-- Action Buttons -->
                           <div class="d-flex gap-2">
-                              <button type="button" class="btn btn-outline-primary btn-sm flex-fill" onclick="viewDetails()">
+
+                              <button type="button" class="btn btn-outline-primary btn-sm flex-fill view-details-btn-sponsor"
+                                
+                                data-reqIdSponsor = "${card.requestId}"
+                                data-bs-toggle="modal"
+                                data-bs-target="#detailsModal-sponsor"
+                              >
                                   View Details
                               </button>
-                              <button type="button" id="help-pet-btn" class="btn btn-primary btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#select_donation_amount">
+
+                              <button type="button" class="btn btn-primary btn-sm flex-fill help-pet-btn" data-bs-toggle="modal" data-bs-target="#select_donation_amount"
+
+                                data-petReqId = "${card.requestId}"
+
+                              >
                                   <i class="bi bi-heart me-1"></i>
                                   Help This Pet
                               </button>
@@ -1118,11 +1124,140 @@ function loadSponsorData(token) {
 }
 
 
+//view details button on sponsor section
+
+// from here now
 
 
 
+
+$(document).on("click", ".view-details-btn-sponsor", function () {
+
+
+    let reqId = $(this).data("reqidsponsor");
+    // alert(reqId)
+
+
+    let imageContainer = $("#imageContainer-sponsor");
+    imageContainer.empty(); // clear previous images
+
+    // Fetch images from backend
+    $.ajax({
+      url: `http://localhost:8080/api/v1/healthRecord/getHealthRecorImages/${reqId}`, // Adjust your API
+      type: "GET",
+      headers: { "Authorization": "Bearer " + localStorage.getItem("jwtToken") }, // if JWT needed
+      success: function (response) {
+        // response.data should be an array of image URLs
+
+        // alert("SuccessFull!!");
+
+        console.log(JSON.stringify(response, null, 2));
+
+
+        
+        response.data.forEach(obj => {
+          let card = `
+            <div class="col-4">
+              <div class="card">
+                <img src="${obj.healthRecordImgUrl}" class="card-img-top fixed-img" alt="Pet Image">
+              </div>
+            </div>`;
+          imageContainer.append(card);
+        });
+
+        
+
+
+
+      },
+      error: function () {
+
+        alert("Faild!!")
+
+        
+        // imageContainer.append(`<p class="text-danger">Failed to load images</p>`);
+        
+
+
+      }
+    });
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//key to keep req id when the corresponding cards button
+let petReqId;
+
+$(document).on("click", ".help-pet-btn", function () {
+    petReqId = $(this).data("petreqid"); 
+    console.log("Pet Request ID:", petReqId);
+});
+
+
+let userId = localStorage.getItem('userId');
+
+
+
+
+
+
+
+
+// This variable is initialized once the payment details button clicked(select the amount from the drop down)
+let selectedAmount;
 
 document.getElementById("open-payment-modal").addEventListener("click", () => {
+
+    selectedAmount = $("#donation_amount").val();
+
+    if(!selectedAmount) {
+        alert("please select the donation amount to continue");
+        return;
+    }
+
+    selectedAmount *= 100;
+
+
+    
+    // alert("Hi this is reqId :: " + petReqId);
+    // alert("Hi this is userId :: " + userId);
+    // alert("Hi this is selected amount :: " + selectedAmount);
+
+
+
+
+
   const donationModal = bootstrap.Modal.getInstance(document.getElementById("select_donation_amount"));
   donationModal.hide();
 
@@ -1157,20 +1292,44 @@ const paymentMessage = document.getElementById("payment-message");
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
+    
+
+
+
+
+
+
+   
+
+
   // (a) Call the backend via AJAX to create a PaymentIntent
+
+  
   const response = await fetch("http://localhost:8080/api/v1/payment/create-intent", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+                "Authorization": "Bearer " + localStorage.getItem('jwtToken'),
+                "Content-Type": "application/json" 
+            },
     body: JSON.stringify({
-      amountCents: 2000,
+      amountCents: selectedAmount,
       currency: "USD",
-      requestId: 2,
-      donorUserId: 2
+      requestId: petReqId,
+      donorUserId: userId
     })
   });
 
+
+
+
+
+
   const data = await response.json();
   const clientSecret = data.clientSecret;
+
+
+
+
 
   // (b) Confirm the card payment using Stripe
   const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
@@ -1178,6 +1337,8 @@ form.addEventListener("submit", async (event) => {
       card: card,
     }
   });
+
+
 
   if (error) {
     // Show error in UI
@@ -1187,5 +1348,108 @@ form.addEventListener("submit", async (event) => {
     // Payment was successful
     paymentMessage.textContent = "✅ Payment successful!";
     paymentMessage.style.color = "green";
+
+    loadSponsorData(localStorage.getItem('jwtToken'));
+
+
   }
+
+
+
+
+
+
 });
+
+
+
+
+
+
+$('#registerPetBtn').on('click', function(e) {
+
+
+    e.preventDefault();
+    createPetDog();
+    // debutController();
+
+
+});
+
+
+
+
+
+
+
+
+function createPetDog() {
+    // Get token from localStorage (assuming you stored it after login)
+
+
+    let token = localStorage.getItem("jwtToken");
+    let userId = localStorage.getItem("userId");
+
+    // Create FormData object
+    let formData = new FormData();
+
+    // Get file from your input field
+    let imageFile = $("#petPhoto")[0].files[0];
+    formData.append("images", imageFile);
+
+
+
+    // dogName":"Luna", "dogBreed":"SL hound", "dogAge":2, "owner": {"id":4, "name": "Anthony", "age": 25, 
+    // "gender": "Male", "email": "antony@gmail.com", "role": "PET_OWNER"}
+
+
+
+    // $('#userRolePetOwner').val()
+
+    // JSON details
+    let details = {
+        dogName: $('#petName').val(),
+        dogBreed:$('#petBreed').val(),
+        dogAge: $('#petAge').val(),
+        owner: {
+            id: userId,
+            name: $('#userNamePetOwner').val(),
+            age: 25,
+            gender: "Male",
+            email: $('#userEmailpetOwner').val(),
+            role: "PET_OWNER"
+        }
+    };
+
+    // Append JSON as a Blob with application/json type
+    formData.append("details", JSON.stringify(details));
+
+    // AJAX call
+    $.ajax({
+        url: "http://localhost:8080/api/v1/petDog/createPetDogTest",
+        type: "POST",
+        data: formData,
+        processData: false,   // prevent query string conversion
+        contentType: false,   // let browser set proper multipart/form-data boundary
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+        success: function (response) {
+            console.log("✅ Pet dog created:", response);
+            alert("Pet dog created successfully!");
+
+            loadPetOwnerData(localStorage.getItem('jwtToken'));
+
+        },
+        error: function (err) {
+            console.error("❌ Error creating pet dog:", err);
+            alert("Failed to create pet dog!");
+        }
+    });
+
+
+}
+
+
+
+
